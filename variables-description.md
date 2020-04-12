@@ -1,72 +1,31 @@
+# UpliftModelling_Iml_team4
+These are data from one of the first successful trials of adjuvant chemotherapy for 
+colon cancer. Levamisole is a low-toxicity compound previously used to treat worm 
+infestations in animals; 5-FU is a moderately toxic (as these things go) chemotherapy 
+agent. There are two records per person, one for recurrence and one for death.
+
+Jest tutaj mowa o raku jelita grubego i eksperymentalnym podejściu do leczenia. 
+Użyty był lek Levamisole - który jest stosowany u zwierząt jako lek przeciwrobaczy, ale 
+zauważono jego właśniwości do leczenia raka jelita grubego. Do porównania jest drugi lek 
+5-FU, czyli 5-Fluoro-Uracyl, który się stosuje "standardowo" w leczeniu raka jelita grubego
+To jest ten "mocniejszy" lek. Oba te leki podaje się po opreacji wycięcia raka, jest to 
+adjutowantowa chemia, czyli 'dodatkowa pooperacyjna'
+
 Variable name                   | Done | Description
 --------------------------------|------|--------------
-TREATMENT                       | ✓    | A flag whether client has received the treatment
-M_SNC_MST_RCNT_ACT_OPN          |      | 
-TOT_HI_CRDT_CRDT_LMT            |      | 
-RATIO_BAL_TO_HI_CRDT            |      | Balance (?) to health insurance (?) credit ratio
-AGRGT_BAL_ALL_XCLD_MRTG         |      | Aggregated (?) balance of all accounts excluding mortgage
-N_OF_SATISFY_FNC_REV_ACTS       |      | Number of ...
-AVG_BAL_ALL_FNC_REV_ACTS        |      | Average balance of financial and revolving accounts (?)
-N_BANK_INSTLACTS                |      | Number of ...
-M_SNCOLDST_BNKINSTL_ACTOPN      |      | 
-N_FNC_INSTLACTS                 |      | Number of ...
-N_SATISFY_INSTL_ACTS            |      | Number of ...
-M_SNC_MSTREC_INSTL_TRD_OPN      |      | 
-TOT_INSTL_HI_CRDT_CRDT_LMT      |      | 
-M_SNC_OLDST_MRTG_ACT_OPN        |      | 
-M_SNC_MSTRCNT_MRTG_ACT_UPD      |      | 
-M_SNC_MST_RCNT_MRTG_DEAL        |      | 
-N30D_ORWRS_RTNG_MRTG_ACTS       |      | 
-N_OF_MRTG_ACTS_DLINQ_24M        | ✓    | Number of mortage accounts which were overdue for more than 30 days in past 24 months
-N_SATISFY_PRSNL_FNC_ACTS        |      | Number of ...
-RATIO_PRSNL_FNC_BAL2HICRDT      |      | 
-TOT_OTHRFIN_HICRDT_CRDTLMT      |      | 
-N_SATISFY_OIL_NATIONL_ACTS      |      | Number of ...
-M_SNCOLDST_OIL_NTN_TRD_OPN      |      | 
-N_BC_ACTS_OPN_IN_12M            |      | Number of balance (?) accounts opened in past 12 months
-N_BC_ACTS_OPN_IN_24M            |      | Number of balance (?) accounts opened in past 24 months
-AVG_BAL_ALL_PRM_BC_ACTS         |      | 
-N_RETAIL_ACTS_OPN_IN_24M        | ✓    | Number of retail accounts opened in past 24 months
-M_SNC_OLDST_RETAIL_ACT_OPN      |      | 
-RATIO_RETAIL_BAL2HI_CRDT        |      | Retail balance (?) to health insurace (?) credit ratio
-TOT_BAL_ALL_DPT_STORE_ACTS      |      | 
-N_30D_RATINGS                   |      | Number of ...
-N_120D_RATINGS                  |      | Number of ...
-N_30D_AND_60D_RATINGS           |      | Number of ...
-N_ACTS_WITH_MXD_3_IN_24M        |      | Number of ...
-N_ACTS_WITH_MXD_4_IN_24M        |      | Number of ...
-PRCNT_OF_ACTS_NEVER_DLQNT       | ✓    | Percentage of accounts which have never been overdue for more than 30 days
-N_ACTS_90D_PLS_LTE_IN_6M        |      | Number of ...
-TOT_NOW_LTE                     |      | 
-N_DEROG_PUB_RECS                |      | Number of ...
-N_INQUIRIES                     |      | Number of ...
-N_FNC_ACTS_VRFY_IN_12M          |      | Number of financial (?) accounts verified (?) in past 12 months
-N_OPEN_REV_ACTS                 | ✓    | Number of open revolving accounts
-N_FNC_ACTS_OPN_IN_12M           |      | Number of financial (?) accounts opened in past 12 months
-HI_RETAIL_CRDT_LMT              |      | Health Insurance (?) and retail (?) credit limit
-N_PUB_REC_ACT_LINE_DEROGS       |      | Number of ...
-M_SNC_MST_RCNT_60_DAY_RTNG      |      | 
-N_DISPUTED_ACTS                 |      | Number of ...
-AUTO_HI_CRDT_2_ACTUAL           |      | 
-MRTG_1_MONTHLY_PAYMENT          |      | 
-MRTG_2_CURRENT_BAL              |      | 
-PREM_BANKCARD_CRED_LMT          |      | 
-STUDENT_HI_CRED_RANGE           |      | 
-AUTO_2_OPEN_DATE_YRS            |      | 
-MAX_MRTG_CLOSE_DATE             |      | 
-UPSCALE_OPEN_DATE_YRS           |      | 
-STUDENT_OPEN_DATE_YRS           |      | 
-FNC_CARD_OPEN_DATE_YRS          |      | 
-AGE                             | ✓    | Age of the client
-D_DEPTCARD                      |      | 
-D_REGION_A                      |      | 
-D_REGION_B                      |      | 
-D_REGION_C                      |      | 
-D_NA_M_SNC_MST_RCNT_ACT_OPN     |      | 
-D_NA_AVG_BAL_ALL_FNC_REV_ACTS   |      | 
-D_NA_M_SNCOLDST_BNKINSTL_ACTOPN |      | 
-D_NA_M_SNC_OLDST_MRTG_ACT_OPN   |      | 
-D_NA_M_SNC_MST_RCNT_MRTG_DEAL   |      | 
-D_NA_RATIO_PRSNL_FNC_BAL2HICRDT |      | 
-PURCHASE                        | ✓    | A flag whether client has purchased the product
-UNIQUE_ID                       | ✓    | Record's unique ID
+id                              |  ✓   |    id
+study                           |  ✓   | 	1 for all patients
+rx                              |  ✓   |    Treatment - Obs(ervation), Lev(amisole), Lev(amisole)+5-FU
+sex                             |  ✓   | 	1=male
+age                             |  ✓   | 	in years
+obstruct                        |  ✓   | 	obstruction of colon by tumour - jest to zwężenie okrężnicy przez tak, czyli zablokowanie przez guz
+perfor                          |  ✓   |    perforation of colon - czy zrobiła się dziura w jelicie
+adhere                          |  ✓   | 	adherence to nearby organs - przyleganie do okolicznych narzadów(np pęcherza moczowego)
+nodes                           |  ✓   |    number of lymph nodes with detectable cancer - podczas operacji wycina się węzły chłonne które były zaatakowane przez raka i to jest liczba węzłów chłonych z wykrywalnym rakiem, powinno być dużo minimum 12, żeby operacja była 'udana'
+time                            |      |    days until event or censoring - liczba dni do rozpoczęcia leczenia?
+status                          |  ✓   |    censoring status
+differ                          |  ✓   | 	differentiation of tumour (1=well, 2=moderate, 3=poor) - zróżnicowanie komórek guza - im więcej tym lepiej, bo bardziej przypomina komórki jelita, a nie zlepek nie wiadomo czego
+extent                          |  ✓   |    Extent of local spread (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures) - Zasięg nowotworu, tzn do jakich tkanek dotarł, 1=podśluzowa, 2=mięśniowa, 3=surowicza, 4=przyległe struktury (im mniej tym lepiej)
+surg                            |  ✓   | 	time from surgery to registration (0=short, 1=long) - czas od operacji do rejestracji
+node4                           |  ✓   | 	more than 4 positive lymph nodes - 4 lub więcej węzłów chłonnych
+etype                           |  ✓   | 	event type: 1=recurrence,2=death - nawrót lub śmierć
