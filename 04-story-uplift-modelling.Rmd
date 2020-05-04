@@ -5,7 +5,12 @@
 *Mentors: Miłosz Dobersztyn (McKinsey), Armin Reinert (McKinsey)*
 
 ## Introduction 
-TODO(oryginał): Put a description of the problem here. indicate the data source. Describe why this problem is important. Indicate the most important literature on the problem.
+TODO(oryginał): Put a description of the problem here. 
+*indicate the data source. *
+We will use data about **Chemotherapy for Stage B/C colon cancer** from `survival` package in R. Dataset avaliable: `survival::colon`. Here's [link](https://stat.ethz.ch/R-manual/R-devel/library/survival/html/colon.html) to destription.
+
+
+Describe why this problem is important. Indicate the most important literature on the problem.
 
 ### What is Uplift Modelling?
  - Czym jest uplift modelling?
@@ -13,38 +18,37 @@ TODO(oryginał): Put a description of the problem here. indicate the data source
  - Jakie problemy możemy modelować (survival & leki, marketing & zysk)?
 
 ### Dataset Description
-These are data from one of the first successful trials of adjuvant chemotherapy for
-colon cancer. Levamisole is a low-toxicity compound previously used to treat worm
-infestations in animals; 5-FU is a moderately toxic (as these things go) chemotherapy
-agent. There are two records per person, one for recurrence and one for death.
+We use data from one of the first successful trials of adjuvant chemotherapy for
+colon cancer.There are two type of treatment:
 
-Jest tutaj mowa o raku jelita grubego i eksperymentalnym podejściu do leczenia.
-Użyty był lek Levamisole - który jest stosowany u zwierząt jako lek przeciwrobaczy, ale
-zauważono jego właśniwości do leczenia raka jelita grubego. Do porównania jest drugi lek
-5-FU, czyli 5-Fluoro-Uracyl, który się stosuje "standardowo" w leczeniu raka jelita grubego
-To jest ten "mocniejszy" lek. Oba te leki podaje się po opreacji wycięcia raka, jest to
-adjutowantowa chemia, czyli 'dodatkowa pooperacyjna'.
+ - Levamisole is a low-toxicity compound previously used to treat worm
+infestations in animals and its effects on the treatment of colon cancer have been noted; 
+ - 5-FluoroUracyl(FU) is a moderately toxic (as these things go) chemotherapy
+agent. This is the 'strongest' one treatment. 
 
-W zabiorze mamy zmienne:
+Both of these medications are given after the cancer excision, it's adjutant chemistry, that means 'extra post-operative".
 
-Variable name                   | Description
---------------------------------|---------------
-id                              |    id
-study                           | 	1 for all patients
-rx                              |    Treatment - Obs(ervation), Lev(amisole), Lev(amisole)+5-FU
-sex                             | 	1=male
-age                             | 	in years
-obstruct                        | 	obstruction of colon by tumour - jest to zwężenie okrężnicy przez tak, czyli zablokowanie przez guz
-perfor                          |    perforation of colon - czy zrobiła się dziura w jelicie
-adhere                          | 	adherence to nearby organs - przyleganie do okolicznych narzadów(np pęcherza moczowego)
-nodes                           |    number of lymph nodes with detectable cancer - podczas operacji wycina się węzły chłonne które były zaatakowane przez raka i to jest liczba węzłów chłonych z wykrywalnym rakiem, powinno być dużo minimum 12, żeby operacja była 'udana'
-time                            |    days until event or censoring - liczba dni do rozpoczęcia leczenia?
-status                          |    censoring status
-differ                          | 	differentiation of tumour (1=well, 2=moderate, 3=poor) - zróżnicowanie komórek guza - im więcej tym lepiej, bo bardziej przypomina komórki jelita, a nie zlepek nie wiadomo czego
-extent                          |    Extent of local spread (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures) - Zasięg nowotworu, tzn do jakich tkanek dotarł, 1=podśluzowa, 2=mięśniowa, 3=surowicza, 4=przyległe struktury (im mniej tym lepiej)
-surg                            | 	time from surgery to registration (0=short, 1=long) - czas od operacji do rejestracji
-node4                           | 	more than 4 positive lymph nodes - 4 lub więcej węzłów chłonnych
-etype                           | 	event type: 1=recurrence,2=death - nawrót lub śmierć
+There are two records per person, one for recurrence and one for death.
+Dataset contains 16 features described below and 1858 observations
+
+Variable name | Description|Type
+--|-----|-
+id| id |categorical
+study| 	1 for all patients| categorical
+rx| Treatment - Observation/Levamisole/Levamisole+5-FluoroUracyl|categorical
+sex| Sex od patient - Male/Female |categorical
+age| Pateint's age in years | continuous
+obstruct| Stenosis of the colon by the cancer, which is blockage by the tumor |binary
+perfor| Perforation of colon, that means id there was a hole in the colon| binary
+adhere | Adherence to the surrounding organs (e.g. bladder)| binary
+nodes | Number of lymph nodes with detectable cancer i.e. during the operation the lymph nodes that were attacked by the cancer are cut out. For the operation to be successful there should be at least 12 lymph nodes.|continuous
+time | Days until event or censoring.The time of receiving the treatment is considered to be time = 0, the time that passed in the variable time is the time until death or relapse from receiving the treatment.|continuous
+status | Censoring status |binary
+differ | Differentiation of tumour cell (1=well, 2=moderate, 3=poor). The more the better because it is more like colon cells. |categorical
+extent | Extent of local spread, what cells did he reach(1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures). The less the better.| categorical
+surg | Time from surgery to registration (0=short, 1=long) | categorical
+node4 | More than 4 positive lymph nodes | binary
+etype | Event type: 1=recurrence, 2=death | categorical
 
 
 
