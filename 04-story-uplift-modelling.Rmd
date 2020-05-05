@@ -50,47 +50,52 @@ surg | Time from surgery to registration (0=short, 1=long) | categorical
 node4 | More than 4 positive lymph nodes | binary
 etype | Event type: 1=recurrence, 2=death | categorical
 
+### Ideas
+There are many ways to use this data:
 
+- to predict the patient's life expectancy depending on whether or not he or she will receive treatment, 
+- whether the treatment is effective or not 
+- life expectancy depending on the medicine administered.
+And that last point we will deal with. 
 
- - Co na nim będziemy modelować (treatment a survival rate).
- Modele przewidują śmiertelność danego pacjenta w zależności odpodanego leku oraz skuteczność leku, czyli czy poprawił stan zdrowotny pacjenta, czy nie.
+### Why It's worth?
+When a patient learns about the disease - colon cancer - he usually asks **how much time he has left?** And now what? What is the treatment? The doctor may indicate a number of therapies that may be effective, but this model will help to provide more accurate data and answer the question about life expectancy.
 
+## Preprocessing data
+We remove columns:
 
+- `id`
+- `study`
+- `etype`
 
+Distribution of the variable `rx` is as below
 
- - Wstępne uzasadnienie dlaczego warto tym się zająć i dlaczego dobrze będzie tu cokolwiek wyjaśniać [ad 5].
+ Levamisole | Levamisole + 5-FU | Observation
+ - | - | -
+ 620 | 608 | 630
 
+and this feature has been categorised.
+The dataset has been divided into 
+
+- X - all feaures (without time and rx)
+- y - target variable (time)
+- tratment - rx variable
 
 ## Model 
-TODO(oryginał): Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.
- - Jaki model wybraliśmy?
- - Jak trzeba było przygotować dataset?
- - Jakie ma osiągi?
- - Jakieś miary typu F1, accuracy i opis tego, które miary na tym zbiorze powinno się stosować.
-Model do przewidywania skuteczności leku został stworzony za pomocą algorytmu ExtraTrees z pakietu sklearn.
- Test -> AUC = 90.98%
- Train -> AUC = 90.31%
+To predict model we used algorithms from the package [causalml](https://github.com/uber/causalml) in python.
+To optimize hyperparameters we used algorithms from the package [hyperopt](https://github.com/hyperopt/hyperopt) also in python.
+All notebooks and codes you can find in [github](https://github.com/aleksandramiesiac/UpliftModelling_Iml_team4).
 
- 	columns 	|importance
-	status 	    |0.747059
- 	node4 	    |0.101439
- 	treatment 	|0.026713
-	extent 	    |0.024557
- 	adhere 	    |0.022921
- 	nodes 	    |0.022467
- 	age 	    |0.018148
- 	perfor 	    |0.010347
- 	obstruct 	|0.007869
- 	sex 	    |0.007074
- 	surg 	    |0.006733
- 	differ 	    |0.004674
+The final model is `XGBTRegressor` with parmeters
 
-Model do przewidywania śmiertelności w zależności od podanego leku został stworzony za pomocą algorytmu UpliftTreeClassifier z pakietu casualml.
+ - colsample_bytree =  0.7324146695038634, 
+ - gamma = 0.8249750889337837,
+ - learning_rate = 0.8882649077192536,
+ - max_depth = 6,
+ - min_child_weight = 0.4152689004191612,
+ - n_estimators = 250.
 
-Przewidywanie leczenia:
-Acc = 43.27%
-Przewidywanie nawrotu choroby:
-AUC = 55.35%
+This gives as Average Treatment(Lev) Effect 70.49 and Average Treatment(Lev+5-FU) Effect 70.89.
 
 ## Explanations
 TODO:(oryginał):
