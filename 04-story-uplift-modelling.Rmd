@@ -13,6 +13,21 @@ We will use data about **Chemotherapy for Stage B/C colon cancer** from `surviva
 Describe why this problem is important. Indicate the most important literature on the problem.
 
 ### What is Uplift Modelling?
+
+For classical algorithms in machine learning it is hard to predict causal impact of the event because they are more suited for predicting the results after an action. In some cases, such as a marketing campaign or medical treatment, that causal impact might be extremely important. Due to the possibility of using two training sets (treatment and control groups) by uplift modeling this problem was solved. 
+
+Uplift modeling is one of the techniques or a branch of machine learning that tries to forecast class probability differences between group exposed to some action or therapy and control group (without that action or therapy).
+
+This technique also allows to discover in research those groups of patients for which treatment was most beneficial, so it is commonly used not only in marketing campaigns or medical treatments but also in other customer services.
+
+REFERENCES:
+Uplift modeling with survival data - Szymon Jaroszewicz , Piotr Rzepakowski https://home.ipipan.waw.pl/s.jaroszewicz/pdf/HI_KDD14.pdf
+Uplift modeling for clinical trial data - Maciej Jaśkowski, Szymon Jaroszewicz http://people.cs.pitt.edu/~milos/icml_clinicaldata_2012/Papers/Oral_Jaroszewitz_ICML_Clinical_2012.pdf
+Uplift Modeling for Multiple Treatments with Cost Optimization Zhenyu Zhao, Totte Harinen https://arxiv.org/pdf/1908.05372.pdf
+Linear regression for uplift modeling -Krzysztof Rudaś, Szymon Jaroszewicz https://link.springer.com/article/10.1007/s10618-018-0576-8
+Ensemble methods for uplift modeling, Michał Sołtys, Szymon Jaroszewicz, Piotr Rzepakowski https://www.researchgate.net/publication/282845041_Ensemble_methods_for_uplift_modeling
+
+
  - Czym jest uplift modelling?
  - Gdzie go się stosuje?
  - Jakie problemy możemy modelować (survival & leki, marketing & zysk)?
