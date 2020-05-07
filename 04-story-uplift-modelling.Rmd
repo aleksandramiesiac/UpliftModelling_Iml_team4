@@ -1,4 +1,4 @@
-# Story Uplift Modelling: eXplaining colon cancer survival rate after treatment {#story-uplift-modelling}
+# Story Uplift Modelling: eXplaining colon cancer survival rate after treatment {#04-story-uplift-modelling}
 
 *Authors: Aleksandra Łuczak (Warsaw University of Technology), Tymoteusz Makowski (Warsaw University of Technology), Kateryna Shulikova (Warsaw School of Economics)*
 
@@ -149,13 +149,13 @@ There are many ways to use this data:
 We have decided to focus on the last mentioned approach.
 
 
-### Why It's worth?
+### Why it's worth?
 When a patient learns about the colon cancer disease they usually ask *"How much more time do I have left he has left?"*. And now what? What is the treatment? The doctor may indicate a number of therapies that may be effective, but still be unable to tell how much time there is left or what's the patient's expectancy to live.
 
 The aim of this model is helping to provide more accurate data and answer the patient's question.
 
 
-## Preprocessing data
+## Data Preprocessing
 We remove columns:
 
 - `id`
@@ -280,7 +280,7 @@ knitr::include_graphics(c('images/04-UL-983Lime1.png','images/04-UL-983Lime2.png
 ```
 
 
-## Summary and conclusions 
+## Summary and Conclusions 
 <!--
     TODO:(oryginał):
     > Here add the most important conclusions related to the XAI analysis.
