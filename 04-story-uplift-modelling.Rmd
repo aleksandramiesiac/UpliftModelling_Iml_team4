@@ -235,35 +235,32 @@ Where the sum in the \@ref(eq:04-ate) equation performed over all $N$ individual
 
 
 ### Instance Level Explainations
-<!--
-TODO:
- - obserwacja nr 865 
- 
- Tutaj trzeba opisac te probkie, dlaczego je i ich paramery,co to w ogóle jest.
--->
+#### Break Down
 ```{r, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down",fig.show='hold',fig.align='center'}
 knitr::include_graphics('images/04-UL-865BD1.png')
 knitr::include_graphics('images/04-UL-865BD2.png')
 ```
 
+```{r, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down",fig.show='hold',fig.align='center'}
+knitr::include_graphics('images/04-UL-983BD1.png')
+knitr::include_graphics('images/04-UL-983BD2.png')
+```
+
+
+#### LIME
+```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime",fig.show='hold',fig.align='center'}
+knitr::include_graphics(c('images/04-UL-983Lime1.png','images/04-UL-983Lime2.png'))
+#knitr::include_graphics('images/04-UL-865Lime2.png')
+```
 
 ```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c('images/04-UL-865Lime1.png','images/04-UL-865Lime2.png'))
 #knitr::include_graphics('images/04-UL-865Lime2.png')
 ```
 
-<!--
- - obserwacja nr 983 tretment levamisole
--->
-```{r, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down",fig.show='hold',fig.align='center'}
-knitr::include_graphics('images/04-UL-983BD1.png')
-knitr::include_graphics('images/04-UL-983BD2.png')
-```
 
-```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime",fig.show='hold',fig.align='center'}
-knitr::include_graphics(c('images/04-UL-983Lime1.png','images/04-UL-983Lime2.png'))
-#knitr::include_graphics('images/04-UL-865Lime2.png')
-```
+#### SHAP
+<!-- TODO: plots -->
 
 
 ## Summary and Conclusions 
