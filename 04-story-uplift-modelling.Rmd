@@ -177,14 +177,14 @@ All notebooks and codes you can find in [GitHub](https://github.com/aleksandrami
 
 The final model is `XGBTRegressor` with following parameters:
 
-| Parameter        | Value               |
-|------------------|---------------------|
-| colsample_bytree |  0.7324146695038634 |
-| gamma            | 0.8249750889337837  |
-| learning_rate    | 0.8882649077192536  |
-| max_depth        | 6                   |
-| min_child_weight | 0.4152689004191612  |
-| n_estimators     | 250                 |
+| Parameter        | Value              |
+|:----------------:|:------------------:|
+| colsample_bytree | 0.7324146695038634 |
+| gamma            | 0.8249750889337837 |
+| learning_rate    | 0.8882649077192536 |
+| max_depth        | 6                  |
+| min_child_weight | 0.4152689004191612 |
+| n_estimators     | 250                |
 
 This gives as Average Treatment(Lev) Effect 70.49 and Average Treatment(Lev+5-FU) Effect 70.89.
 
