@@ -46,24 +46,24 @@ Both of these medications are given after the cancer excision, it's adjutant che
 There are two records per person, one for recurrence and one for death.
 Dataset contains 16 features described below and 1858 observations
 
-Variable name | Description|Type
---|-----|-
-id| id |categorical
-study| 	1 for all patients| categorical
-rx| Treatment - Observation/Levamisole/Levamisole+5-FluoroUracyl|categorical
-sex| Sex od patient - Male/Female |categorical
-age| Pateint's age in years | continuous
-obstruct| Stenosis of the colon by the cancer, which is blockage by the tumor |binary
-perfor| Perforation of colon, that means id there was a hole in the colon| binary
-adhere | Adherence to the surrounding organs (e.g. bladder)| binary
-nodes | Number of lymph nodes with detectable cancer i.e. during the operation the lymph nodes that were attacked by the cancer are cut out. For the operation to be successful there should be at least 12 lymph nodes.|continuous
-time | Days until event or censoring.The time of receiving the treatment is considered to be time = 0, the time that passed in the variable time is the time until death or relapse from receiving the treatment.|continuous
-status | Censoring status |binary
-differ | Differentiation of tumour cell (1=well, 2=moderate, 3=poor). The more the better because it is more like colon cells. |categorical
-extent | Extent of local spread, what cells did he reach(1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures). The less the better.| categorical
-surg | Time from surgery to registration (0=short, 1=long) | categorical
-node4 | More than 4 positive lymph nodes | binary
-etype | Event type: 1=recurrence, 2=death | categorical
+| Variable name | Type        | Description |
+|---------------|-------------|-------------|
+| id            | categorical | An id. |
+| study         | categorical | 1 for all patients. |
+| rx            | categorical | Treatment: Observation, Levamisole or Levamisole+5-FluoroUracyl. |
+| sex           | categorical | Patient's sex: Male or Female. |
+| age           | continuous  | Pateint's age in years. |
+| obstruct      | binary      | Stenosis of the colon by the cancer, which is blockage by the tumor. |
+| perfor        | binary      | Perforation of colon - a flag whether there was a hole in the colon. |
+| adhere        | binary      | Adherence to the surrounding organs (e.g. bladder). |
+| nodes         | continuous  | Number of lymph nodes with detectable cancer i.e. during the operation the lymph nodes that were attacked by the cancer are cut out. For the operation to be successful there should be at least 12 lymph nodes. |
+| time          | continuous  | Days until event or censoring. The time of receiving the treatment is considered to be time = 0, the time that passed in the variable time is the time until death or relapse from receiving the treatment. |
+| status        | binary      | Censoring status. |
+| differ        | categorical | Differentiation of tumour cell (1=well, 2=moderate, 3=poor). The more the better because it is more like colon cells. |
+| extent        | categorical | Extent of local spread, what cells did he reach (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures). The less the better. |
+| surg          | categorical | Time from surgery to registration (0=short, 1=long). |
+| node4         | binary      | More than 4 positive lymph nodes. |
+| etype         | categorical | Event type: 1=recurrence, 2=death. |
 
 ### Ideas
 There are many ways to use this data:
@@ -83,18 +83,18 @@ We remove columns:
 - `study`
 - `etype`
 
-Distribution of the variable `rx` is as below
+Distribution of the variable `rx` is as shown below.
 
- Levamisole | Levamisole + 5-FU | Observation
- - | - | -
- 620 | 608 | 630
+| Levamisole | Levamisole + 5-FU | Observation |
+|:----------:|:-----------------:|:-----------:|
+| 620        | 608               | 630         |
 
 and this feature has been categorised.
-The dataset has been divided into 
+The dataset has been divided into:
 
-- X - all feaures (without time and rx)
-- y - target variable (time)
-- tratment - rx variable
+- X - all feaures (without time and rx),
+- y - target variable (time),
+- tratment - `rx` variable.
 
 ## Model 
 To predict model we used algorithms from the package [causalml](https://github.com/uber/causalml) in python.
