@@ -133,7 +133,7 @@ There are many ways to use this data:
 We have decided to focus on the last mentioned approach.
 
 
-### Why it's worth?
+### Why is it worth the hassle?
 When a patient learns about the colon cancer disease they usually ask *"How much more time do I have left he has left?"*. And now what? What is the treatment? The doctor may indicate a number of therapies that may be effective, but still be unable to tell how much time there is left or what's the patient's expectancy to live.
 
 The aim of this model is helping to provide more accurate data and answer the patient's question.
