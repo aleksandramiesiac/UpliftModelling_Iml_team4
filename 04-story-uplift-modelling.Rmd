@@ -5,12 +5,13 @@
 *Mentors: Miłosz Dobersztyn (McKinsey), Armin Reinert (McKinsey)*
 
 ## Introduction 
-TODO(oryginał): Put a description of the problem here. 
-*indicate the data source. *
-We will use data about **Chemotherapy for Stage B/C colon cancer** from `survival` package in R. Dataset available: `survival::colon`. Here's [link](https://stat.ethz.ch/R-manual/R-devel/library/survival/html/colon.html) to description.
+We will use data about **Chemotherapy for Stage B/C colon cancer** from `survival` package in R. The documentation can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/survival/html/colon.html), the package can be installed with `install.packages("survival")` command in R console. After the installation dataset can be accessed via `survival::colon` command.
 
+<!--
+    TODO: Describe why this problem is important. Indicate the most important literature on the problem. 
+    TODO(oryginał): Put a description of the problem here. *Indicate the data source.*
+-->
 
-Describe why this problem is important. Indicate the most important literature on the problem.
 
 ### What is Uplift Modelling?
 
@@ -25,27 +26,25 @@ REFERENCES:
 * Uplift modeling with survival data - Szymon Jaroszewicz , Piotr Rzepakowski https://home.ipipan.waw.pl/s.jaroszewicz/pdf/HI_KDD14.pdf
 * Uplift modeling for clinical trial data - Maciej Jaśkowski, Szymon Jaroszewicz http://people.cs.pitt.edu/~milos/icml_clinicaldata_2012/Papers/Oral_Jaroszewitz_ICML_Clinical_2012.pdf
 * Uplift Modeling for Multiple Treatments with Cost Optimization Zhenyu Zhao, Totte Harinen https://arxiv.org/pdf/1908.05372.pdf
-* Linear regression for uplift modeling -Krzysztof Rudaś, Szymon Jaroszewicz https://link.springer.com/article/10.1007/s10618-018-0576-8
+* Linear regression for uplift modeling - Krzysztof Rudaś, Szymon Jaroszewicz https://link.springer.com/article/10.1007/s10618-018-0576-8
 * Ensemble methods for uplift modeling, Michał Sołtys, Szymon Jaroszewicz, Piotr Rzepakowski https://www.researchgate.net/publication/282845041_Ensemble_methods_for_uplift_modeling
 
-
+<!-- TODO:
  - Czym jest uplift modelling?
  - Gdzie go się stosuje?
  - Jakie problemy możemy modelować (survival & leki, marketing & zysk)?
+-->
+
 
 ### Dataset Description
-We use data from one of the first successful trials of adjuvant chemotherapy for
-colon cancer.There are two type of treatment:
+We use data from one of the first successful trials of adjuvant chemotherapy for colon cancer. There are two type of treatment:
 
- - Levamisole is a low-toxicity compound previously used to treat worm
-infestations in animals and its effects on the treatment of colon cancer have been noted; 
- - 5-FluoroUracyl(FU) is a moderately toxic (as these things go) chemotherapy
-agent. This is the 'strongest' one treatment. 
+ - *Levamisole* is a low-toxicity compound previously used to treat worm infestations in animals and its effects on the treatment of colon cancer have been noted; 
+ - *5-FluoroUracyl(FU)* is a moderately toxic (as these things go) chemotherapy agent. This is the "strongest" one treatment. 
 
-Both of these medications are given after the cancer excision, it's adjutant chemistry, that means 'extra post-operative".
+Both of these medications are given after the cancer excision, it's adjutant chemistry, that means "extra post-operative".
 
-There are two records per person, one for recurrence and one for death.
-Dataset contains 16 features described below and 1858 observations
+There are two records per person, one for recurrence and one for death. Dataset contains 1858 observations and 16 features which are described below.
 
 <table>
  <thead>
@@ -143,13 +142,18 @@ Dataset contains 16 features described below and 1858 observations
 ### Ideas
 There are many ways to use this data:
 
-- to predict the patient's life expectancy depending on whether or not he or she will receive treatment, 
-- whether the treatment is effective or not 
-- life expectancy depending on the medicine administered.
-And that last point we will deal with. 
+- prediction of the patient's life expectancy depending on whether they received  treatment or not,
+- prediction whether the treatment is effective or not,
+- prediction of the life expectancy depending on the medicine administered.
+
+We have decided to focus on the last mentioned approach.
+
 
 ### Why It's worth?
-When a patient learns about the disease - colon cancer - he usually asks **how much time he has left?** And now what? What is the treatment? The doctor may indicate a number of therapies that may be effective, but this model will help to provide more accurate data and answer the question about life expectancy.
+When a patient learns about the colon cancer disease they usually ask *"How much more time do I have left he has left?"*. And now what? What is the treatment? The doctor may indicate a number of therapies that may be effective, but still be unable to tell how much time there is left or what's the patient's expectancy to live.
+
+The aim of this model is helping to provide more accurate data and answer the patient's question.
+
 
 ## Preprocessing data
 We remove columns:
@@ -158,22 +162,23 @@ We remove columns:
 - `study`
 - `etype`
 
-Distribution of the variable `rx` is as shown below. This feature has been categorised.
-
-| Levamisole | Levamisole + 5-FU | Observation |
-|:----------:|:-----------------:|:-----------:|
-| 620        | 608               | 630         |
-
 The dataset has been divided into:
 
 - X - all features (without time and rx),
 - y - target variable (time),
 - treatment - `rx` variable.
 
+Distribution of the variable `rx` is as shown below. This feature has been categorised.
+
+| Levamisole | Levamisole + 5-FU | Observation |
+|:----------:|:-----------------:|:-----------:|
+| 620        | 608               | 630         |
+
+
 ## Model 
-To predict model we used algorithms from the package [causalml](https://github.com/uber/causalml) in python.
-To optimize hyper parameters we used algorithms from the package [hyperopt](https://github.com/hyperopt/hyperopt) also in python.
-All notebooks and codes you can find in [GitHub](https://github.com/aleksandramiesiac/UpliftModelling_Iml_team4).
+To predict model we used algorithms from the package [causalml](https://github.com/uber/causalml) in Python 3.
+To optimize hyper parameters we used algorithms from the package [hyperopt](https://github.com/hyperopt/hyperopt) also in Python 3.
+All notebooks and codes can be found on [GitHub](https://github.com/aleksandramiesiac/UpliftModelling_Iml_team4).
 
 The final model is `XGBTRegressor` with following parameters:
 
@@ -214,32 +219,43 @@ The final model is `XGBTRegressor` with following parameters:
 
 This gives as Average Treatment(Lev) Effect 70.49 and Average Treatment(Lev+5-FU) Effect 70.89.
 
-## Explanations
-TODO:(oryginał):
-> Here, show how XAI techniques can be used to solve the problem.
-> Will dataset specific or instance specific techniques help more?
->
-> Will XAI be useful before (pre), during (in) or after (post) modeling?
->
-> What is interesting to learn from the XAI analysis?
 
- - Jak w ogóle to wyjaśniać skoro np. możemy mieć dwa modele?
- - Wizualizacje dopracować (czytelne wykresy, opisy itp.) [ad 4].
+## Explanations
+<!--
+    TODO:(oryginał):
+    > Here, show how XAI techniques can be used to solve the problem.
+    > Will dataset specific or instance specific techniques help more?
+    >
+    > Will XAI be useful before (pre), during (in) or after (post) modeling?
+    >
+    > What is interesting to learn from the XAI analysis?
+
+     - Jak w ogóle to wyjaśniać skoro np. możemy mieć dwa modele?
+     - Wizualizacje dopracować (czytelne wykresy, opisy itp.) [ad 4].
+-->
+
 
 ### Dataset Level Explainations
- - Jaka jest istotność zmiennych?
+<!--
+    TODO: Jaka jest istotność zmiennych?
+-->
+
 
 ### Instance Level Explainations
- - Jakieś "ciekawe" przypadki?
+<!--
+    TODO: Jakieś "ciekawe" przypadki?
+-->
 
 
 ## Summary and conclusions 
-TODO:(oryginał):
-> Here add the most important conclusions related to the XAI analysis.
-> What did you learn? 
-> Where were the biggest difficulties?
-> What else did you recommend?
+<!--
+    TODO:(oryginał):
+    > Here add the most important conclusions related to the XAI analysis.
+    > What did you learn? 
+    > Where were the biggest difficulties?
+    > What else did you recommend?
 
- - Jakich informacji XAI nam dostarczyło na temat tego problemu?
- - Jak XAI sprawdza się do wyjaśniania upliftu?
- - Dlaczego było warto to modelować (konkretnie ten dataset) [ad 5].
+     - Jakich informacji XAI nam dostarczyło na temat tego problemu?
+     - Jak XAI sprawdza się do wyjaśniania upliftu?
+     - Dlaczego było warto to modelować (konkretnie ten dataset) [ad 5].
+-->
