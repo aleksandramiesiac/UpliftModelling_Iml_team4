@@ -203,11 +203,14 @@ sub(
 This gives as Average Treatment(Lev) Effect 70.49 and Average Treatment(Lev+5-FU) Effect 70.89.
 
 The average treatment effect (ATE) is a measure used to compare treatments in randomized experiments, evaluation of medical trials. The ATE measures the difference in mean  outcomes between units assigned to the treatment and units assigned to the control. In a randomized trial the average treatment effect can be estimated from a sample using a comparison in mean outcomes for treated and untreated units. 
-The treatment effect for individual $i$ is given by $y_{1}(i)-y_{0}(i)=\beta(i)$. In the general case, there is no reason to expect this effect to be constant across individuals. The average treatment effect is given by:
+The treatment effect for individual $i$ is given by $y_{1}(i)-y_{0}(i)=\beta(i)$. In the general case, there is no reason to expect this effect to be constant across individuals. The average treatment effect is given by the equation \@ref(eq:04-ate).
 
-$$ATE = \frac{1}{N}\sum_{i}y_{1}(i)-y_{0}(i),$$
+\begin{equation} 
+    ATE = \frac{1}{N}\sum_{i}y_{1}(i)-y_{0}(i)
+    (\#eq:04-ate)
+\end{equation}
 
-where the summation occurs over all $N$ individuals in the population. 
+Where the sum in the \@ref(eq:04-ate) equation performed over all $N$ individuals in the population. 
 
 
 ## Explanations
