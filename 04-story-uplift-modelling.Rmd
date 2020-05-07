@@ -299,8 +299,25 @@ knitr::include_graphics(c('images/04-UL-865Lime1.png','images/04-UL-865Lime2.png
 
 
 #### SHAP
-<!-- TODO: plots -->
+The SHAP plots have been created for both selected observations. For each of the observations there are two different plots. The reason for two different plots is the fact that `XGBTRegressor` model underneath creates a model for every treatment. Hence we have got one plot for every treatment type there is - in our case *Lev* and *Lev+5FU* - as seen on figures \@ref(04-SHAP-865) and \@ref(04-SHAP-983).
 
+```{r, 04-SHAP-865, echo=FALSE, out.width = "49%", fig.cap="SHAP plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.", fig.show='hold', fig.align='center'}
+knitr::include_graphics(
+    c(
+        "images/04-UL-865SHAP1.png",
+        "images/04-UL-865SHAP2.png"
+    )
+)
+```
+
+```{r, 04-SHAP-983, echo=FALSE, out.width = "49%", fig.cap="SHAP plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.", fig.show='hold', fig.align='center'}
+knitr::include_graphics(
+    c(
+        "images/04-UL-983SHAP1.png",
+        "images/04-UL-983SHAP2.png"
+    )
+)
+```
 
 ## Summary and Conclusions 
 <!--
