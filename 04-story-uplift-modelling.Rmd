@@ -235,6 +235,45 @@ Where the sum in the \@ref(eq:04-ate) equation performed over all $N$ individual
 
 
 ### Instance Level Explainations
+For the instance level explainations we have decided to focus on a limited number of observations.
+These observations are taken from set which seemed to provide interesting results during the data exploration process.
+
+The two observations which we have selected can be found in the table \@ref(tab:04-selected-obs).
+
+```{r, echo = FALSE}
+{
+    colNames <- c("sex", "age", "obstruct", "perfor", "adhere", "nodes", "status", "differ", "extent", "surg", "node4")
+
+    sub(
+        "<tbody>",
+        '<tbody style="font-size: 87%;">',
+        sub(
+            "<thead>",
+            '<thead style="font-size: 87%;">',
+            knitr::kable(
+                setNames(
+                    as.data.frame(
+                        t(
+                            data.frame(
+                                "865" = c(0, 68, 0, 0, 1, 2, 1, 1, 3, 0, 0),
+                                "983" = c(1, 56, 0, 0, 0, 4, 0, 2, 3, 0, 0),
+                                check.names = FALSE
+                            )
+                        )
+                    ),
+                    colNames
+                ),
+                "html",
+                caption = "The two observations selected from the dataset for instance level explainations.",
+                label = "04-selected-obs",
+                align = rep("c", length(colNames))
+            )
+        )
+    )
+}
+```
+
+
 #### Break Down
 ```{r, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down",fig.show='hold',fig.align='center'}
 knitr::include_graphics('images/04-UL-865BD1.png')
