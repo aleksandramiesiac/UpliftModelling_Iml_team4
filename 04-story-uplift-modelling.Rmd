@@ -21,11 +21,12 @@ Uplift modeling is one of the techniques or a branch of machine learning that tr
 This technique also allows to discover in research those groups of patients for which treatment was most beneficial, so it is commonly used not only in marketing campaigns or medical treatments but also in other customer services.
 
 REFERENCES:
-Uplift modeling with survival data - Szymon Jaroszewicz , Piotr Rzepakowski https://home.ipipan.waw.pl/s.jaroszewicz/pdf/HI_KDD14.pdf
-Uplift modeling for clinical trial data - Maciej Jaśkowski, Szymon Jaroszewicz http://people.cs.pitt.edu/~milos/icml_clinicaldata_2012/Papers/Oral_Jaroszewitz_ICML_Clinical_2012.pdf
-Uplift Modeling for Multiple Treatments with Cost Optimization Zhenyu Zhao, Totte Harinen https://arxiv.org/pdf/1908.05372.pdf
-Linear regression for uplift modeling -Krzysztof Rudaś, Szymon Jaroszewicz https://link.springer.com/article/10.1007/s10618-018-0576-8
-Ensemble methods for uplift modeling, Michał Sołtys, Szymon Jaroszewicz, Piotr Rzepakowski https://www.researchgate.net/publication/282845041_Ensemble_methods_for_uplift_modeling
+
+* Uplift modeling with survival data - Szymon Jaroszewicz , Piotr Rzepakowski https://home.ipipan.waw.pl/s.jaroszewicz/pdf/HI_KDD14.pdf
+* Uplift modeling for clinical trial data - Maciej Jaśkowski, Szymon Jaroszewicz http://people.cs.pitt.edu/~milos/icml_clinicaldata_2012/Papers/Oral_Jaroszewitz_ICML_Clinical_2012.pdf
+* Uplift Modeling for Multiple Treatments with Cost Optimization Zhenyu Zhao, Totte Harinen https://arxiv.org/pdf/1908.05372.pdf
+* Linear regression for uplift modeling -Krzysztof Rudaś, Szymon Jaroszewicz https://link.springer.com/article/10.1007/s10618-018-0576-8
+* Ensemble methods for uplift modeling, Michał Sołtys, Szymon Jaroszewicz, Piotr Rzepakowski https://www.researchgate.net/publication/282845041_Ensemble_methods_for_uplift_modeling
 
 
  - Czym jest uplift modelling?
@@ -46,24 +47,98 @@ Both of these medications are given after the cancer excision, it's adjutant che
 There are two records per person, one for recurrence and one for death.
 Dataset contains 16 features described below and 1858 observations
 
-| Variable name | Type        | Description |
-|---------------|-------------|-------------|
-| id            | categorical | An id. |
-| study         | categorical | 1 for all patients. |
-| rx            | categorical | Treatment: Observation, Levamisole or Levamisole+5-FluoroUracyl. |
-| sex           | categorical | Patient's sex: Male or Female. |
-| age           | continuous  | Pateint's age in years. |
-| obstruct      | binary      | Stenosis of the colon by the cancer, which is blockage by the tumor. |
-| perfor        | binary      | Perforation of colon - a flag whether there was a hole in the colon. |
-| adhere        | binary      | Adherence to the surrounding organs (e.g. bladder). |
-| nodes         | continuous  | Number of lymph nodes with detectable cancer i.e. during the operation the lymph nodes that were attacked by the cancer are cut out. For the operation to be successful there should be at least 12 lymph nodes. |
-| time          | continuous  | Days until event or censoring. The time of receiving the treatment is considered to be time = 0, the time that passed in the variable time is the time until death or relapse from receiving the treatment. |
-| status        | binary      | Censoring status. |
-| differ        | categorical | Differentiation of tumour cell (1=well, 2=moderate, 3=poor). The more the better because it is more like colon cells. |
-| extent        | categorical | Extent of local spread, what cells did he reach (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures). The less the better. |
-| surg          | categorical | Time from surgery to registration (0=short, 1=long). |
-| node4         | binary      | More than 4 positive lymph nodes. |
-| etype         | categorical | Event type: 1=recurrence, 2=death. |
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left; width: 20%;"> Variable </th>
+   <th style="text-align:left; width: 20%;"> Type </th>
+   <th style="text-align:left;"> Description </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> id </td>
+   <td style="text-align:left;"> categorical </td>
+   <td style="text-align:left;"> An id. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> study </td>
+   <td style="text-align:left;"> categorical </td>
+   <td style="text-align:left;"> 1 for all patients. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rx </td>
+   <td style="text-align:left;"> categorical </td>
+   <td style="text-align:left;"> Treatment: Observation, Levamisole or Levamisole+5-FluoroUracyl. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sex </td>
+   <td style="text-align:left;"> categorical </td>
+   <td style="text-align:left;"> Patient's sex: Male or Female. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> age </td>
+   <td style="text-align:left;"> continuous </td>
+   <td style="text-align:left;"> Pateint's age in years. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> obstruct </td>
+   <td style="text-align:left;"> binary </td>
+   <td style="text-align:left;"> Stenosis of the colon by the cancer, which is blockage by the tumor. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> perfor </td>
+   <td style="text-align:left;"> binary </td>
+   <td style="text-align:left;"> Perforation of colon - a flag whether there was a hole in the colon. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> adhere </td>
+   <td style="text-align:left;"> binary </td>
+   <td style="text-align:left;"> Adherence to the surrounding organs (e.g. bladder). </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> nodes </td>
+   <td style="text-align:left;"> continuous </td>
+   <td style="text-align:left;"> Number of lymph nodes with detectable cancer i.e. during the operation the lymph nodes that were attacked by the cancer are cut out. For the operation to be successful there should be at least 12 lymph nodes. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> time </td>
+   <td style="text-align:left;"> continuous </td>
+   <td style="text-align:left;"> Days until event or censoring. The time of receiving the treatment is considered to be time = 0, the time that passed in the variable time is the time until death or relapse from receiving the treatment. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> status </td>
+   <td style="text-align:left;"> binary </td>
+   <td style="text-align:left;"> Censoring status. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> differ </td>
+   <td style="text-align:left;"> categorical </td>
+   <td style="text-align:left;"> Differentiation of tumour cell (1=well, 2=moderate, 3=poor). The more the better because it is more like colon cells. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> extent </td>
+   <td style="text-align:left;"> categorical </td>
+   <td style="text-align:left;"> Extent of local spread, what cells did he reach (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures). The less the better. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> surg </td>
+   <td style="text-align:left;"> categorical </td>
+   <td style="text-align:left;"> Time from surgery to registration (0=short, 1=long). </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> node4 </td>
+   <td style="text-align:left;"> binary </td>
+   <td style="text-align:left;"> More than 4 positive lymph nodes. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> etype </td>
+   <td style="text-align:left;"> categorical </td>
+   <td style="text-align:left;"> Event type: 1=recurrence, 2=death. </td>
+  </tr>
+</tbody>
+</table>
+
 
 ### Ideas
 There are many ways to use this data:
