@@ -51,8 +51,8 @@ Variable name | Description|Type
 id| id |categorical
 study| 	1 for all patients| categorical
 rx| Treatment - Observation/Levamisole/Levamisole+5-FluoroUracyl|categorical
-sex| Sex od patient - Male/Female |categorical
-age| Pateint's age in years | continuous
+sex| Sex of patient - Male/Female |categorical
+age| Patient's age in years | continuous
 obstruct| Stenosis of the colon by the cancer, which is blockage by the tumor |binary
 perfor| Perforation of colon, that means id there was a hole in the colon| binary
 adhere | Adherence to the surrounding organs (e.g. bladder)| binary
@@ -112,6 +112,13 @@ The final model is `XGBTRegressor` with parmeters
 
 This gives as Average Treatment(Lev) Effect 70.49 and Average Treatment(Lev+5-FU) Effect 70.89.
 
+The average treatment effect (ATE) is a measure used to compare treatments in randomized experiments, evaluation of medical trials. The ATE measures the difference in mean  outcomes between units assigned to the treatment and units assigned to the control. In a randomized trial the average treatment effect can be estimated from a sample using a comparison in mean outcomes for treated and untreated units. 
+The treatment effect for individual $i$ is given by $y_{1}(i)-y_{0}(i)=\beta(i)$. In the general case, there is no reason to expect this effect to be constant across individuals. The average treatment effect is given by:
+
+$ATE = \frac{1}{N}\sum_{i}y_{1}(i)-y_{0}(i)$
+
+where the summation occurs over all $N$ individuals in the population. 
+
 ## Explanations
 TODO:(oryginał):
 > Here, show how XAI techniques can be used to solve the problem.
@@ -128,8 +135,30 @@ TODO:(oryginał):
  - Jaka jest istotność zmiennych?
 
 ### Instance Level Explainations
- - Jakieś "ciekawe" przypadki?
+ - obserwacja nr 865 
+ 
+ Tutaj trzeba opisac te probkie, dlaczego je i ich paramery,co to w ogóle jest.
+```{r, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down",fig.show='hold',fig.align='center'}
+knitr::include_graphics('images/04-UL-865BD1.png')
+knitr::include_graphics('images/04-UL-865BD2.png')
+```
 
+
+```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime",fig.show='hold',fig.align='center'}
+knitr::include_graphics(c('images/04-UL-865Lime1.png','images/04-UL-865Lime2.png'))
+#knitr::include_graphics('images/04-UL-865Lime2.png')
+```
+
+ - obserwacja nr 983 tretment levamisole
+```{r, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down",fig.show='hold',fig.align='center'}
+knitr::include_graphics('images/04-UL-983BD1.png')
+knitr::include_graphics('images/04-UL-983BD2.png')
+```
+
+```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime",fig.show='hold',fig.align='center'}
+knitr::include_graphics(c('images/04-UL-983Lime1.png','images/04-UL-983Lime2.png'))
+#knitr::include_graphics('images/04-UL-865Lime2.png')
+```
 
 ## Summary and conclusions 
 TODO:(oryginał):
