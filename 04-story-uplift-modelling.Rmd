@@ -7,7 +7,7 @@
 ## Introduction 
 TODO(oryginał): Put a description of the problem here. 
 *indicate the data source. *
-We will use data about **Chemotherapy for Stage B/C colon cancer** from `survival` package in R. Dataset avaliable: `survival::colon`. Here's [link](https://stat.ethz.ch/R-manual/R-devel/library/survival/html/colon.html) to destription.
+We will use data about **Chemotherapy for Stage B/C colon cancer** from `survival` package in R. Dataset available: `survival::colon`. Here's [link](https://stat.ethz.ch/R-manual/R-devel/library/survival/html/colon.html) to description.
 
 
 Describe why this problem is important. Indicate the most important literature on the problem.
@@ -79,7 +79,7 @@ Dataset contains 16 features described below and 1858 observations
   <tr>
    <td style="text-align:left;"> age </td>
    <td style="text-align:left;"> continuous </td>
-   <td style="text-align:left;"> Pateint's age in years. </td>
+   <td style="text-align:left;"> Patient's age in years. </td>
   </tr>
   <tr>
    <td style="text-align:left;"> obstruct </td>
@@ -158,32 +158,33 @@ We remove columns:
 - `study`
 - `etype`
 
-Distribution of the variable `rx` is as shown below.
+Distribution of the variable `rx` is as shown below. This feature has been categorised.
 
 | Levamisole | Levamisole + 5-FU | Observation |
 |:----------:|:-----------------:|:-----------:|
 | 620        | 608               | 630         |
 
-and this feature has been categorised.
 The dataset has been divided into:
 
-- X - all feaures (without time and rx),
+- X - all features (without time and rx),
 - y - target variable (time),
-- tratment - `rx` variable.
+- treatment - `rx` variable.
 
 ## Model 
 To predict model we used algorithms from the package [causalml](https://github.com/uber/causalml) in python.
-To optimize hyperparameters we used algorithms from the package [hyperopt](https://github.com/hyperopt/hyperopt) also in python.
-All notebooks and codes you can find in [github](https://github.com/aleksandramiesiac/UpliftModelling_Iml_team4).
+To optimize hyper parameters we used algorithms from the package [hyperopt](https://github.com/hyperopt/hyperopt) also in python.
+All notebooks and codes you can find in [GitHub](https://github.com/aleksandramiesiac/UpliftModelling_Iml_team4).
 
-The final model is `XGBTRegressor` with parmeters
+The final model is `XGBTRegressor` with following parameters:
 
- - colsample_bytree =  0.7324146695038634, 
- - gamma = 0.8249750889337837,
- - learning_rate = 0.8882649077192536,
- - max_depth = 6,
- - min_child_weight = 0.4152689004191612,
- - n_estimators = 250.
+| Parameter        | Value               |
+|------------------|---------------------|
+| colsample_bytree |  0.7324146695038634 |
+| gamma            | 0.8249750889337837  |
+| learning_rate    | 0.8882649077192536  |
+| max_depth        | 6                   |
+| min_child_weight | 0.4152689004191612  |
+| n_estimators     | 250                 |
 
 This gives as Average Treatment(Lev) Effect 70.49 and Average Treatment(Lev+5-FU) Effect 70.89.
 
