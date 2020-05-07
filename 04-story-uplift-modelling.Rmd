@@ -1,8 +1,17 @@
-# Story Uplift Modelling: eXplaining colon cancer survival rate after treatment {#04-story-uplift-modelling}
+# Story Uplift Modelling: eXplaining colon cancer survival rate after treatment {#story-uplift-modelling}
 
 *Authors: Aleksandra Łuczak (Warsaw University of Technology), Tymoteusz Makowski (Warsaw University of Technology), Kateryna Shulikova (Warsaw School of Economics)*
 
 *Mentors: Miłosz Dobersztyn (McKinsey), Armin Reinert (McKinsey)*
+
+```{r, echo = FALSE}
+# Function used to set columns' widths in HTML knitr::kable tables.
+# Source of the function: https://github.com/rstudio/bookdown/issues/122#issuecomment-221101375
+html_table_width <- function(kable_output, width){
+  width_html <- paste0(paste0('<col width="', width, '">'), collapse = "\n")
+  sub('<table>', paste0('<table class="table">\n', width_html), kable_output)
+}
+```
 
 ## Introduction 
 We will use data about **Chemotherapy for Stage B/C colon cancer** from `survival` package in R. The documentation can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/survival/html/colon.html), the package can be installed with `install.packages("survival")` command in R console. After the installation dataset can be accessed via `survival::colon` command.
@@ -44,99 +53,74 @@ We use data from one of the first successful trials of adjuvant chemotherapy for
 
 Both of these medications are given after the cancer excision, it's adjutant chemistry, that means "extra post-operative".
 
-There are two records per person, one for recurrence and one for death. Dataset contains 1858 observations and 16 features which are described below.
+There are two records per person, one for recurrence and one for death. Dataset contains 1858 observations and 16 features which are described in the table \@ref(tab:04-variables-description).
 
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left; width: 20%;"> Variable </th>
-   <th style="text-align:left; width: 20%;"> Type </th>
-   <th style="text-align:left;"> Description </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> id </td>
-   <td style="text-align:left;"> categorical </td>
-   <td style="text-align:left;"> An id. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> study </td>
-   <td style="text-align:left;"> categorical </td>
-   <td style="text-align:left;"> 1 for all patients. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> rx </td>
-   <td style="text-align:left;"> categorical </td>
-   <td style="text-align:left;"> Treatment: Observation, Levamisole or Levamisole+5-FluoroUracyl. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> sex </td>
-   <td style="text-align:left;"> categorical </td>
-   <td style="text-align:left;"> Patient's sex: Male or Female. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> age </td>
-   <td style="text-align:left;"> continuous </td>
-   <td style="text-align:left;"> Patient's age in years. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> obstruct </td>
-   <td style="text-align:left;"> binary </td>
-   <td style="text-align:left;"> Stenosis of the colon by the cancer, which is blockage by the tumor. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> perfor </td>
-   <td style="text-align:left;"> binary </td>
-   <td style="text-align:left;"> Perforation of colon - a flag whether there was a hole in the colon. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> adhere </td>
-   <td style="text-align:left;"> binary </td>
-   <td style="text-align:left;"> Adherence to the surrounding organs (e.g. bladder). </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> nodes </td>
-   <td style="text-align:left;"> continuous </td>
-   <td style="text-align:left;"> Number of lymph nodes with detectable cancer i.e. during the operation the lymph nodes that were attacked by the cancer are cut out. For the operation to be successful there should be at least 12 lymph nodes. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> time </td>
-   <td style="text-align:left;"> continuous </td>
-   <td style="text-align:left;"> Days until event or censoring. The time of receiving the treatment is considered to be time = 0, the time that passed in the variable time is the time until death or relapse from receiving the treatment. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> status </td>
-   <td style="text-align:left;"> binary </td>
-   <td style="text-align:left;"> Censoring status. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> differ </td>
-   <td style="text-align:left;"> categorical </td>
-   <td style="text-align:left;"> Differentiation of tumour cell (1=well, 2=moderate, 3=poor). The more the better because it is more like colon cells. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> extent </td>
-   <td style="text-align:left;"> categorical </td>
-   <td style="text-align:left;"> Extent of local spread, what cells did he reach (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures). The less the better. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> surg </td>
-   <td style="text-align:left;"> categorical </td>
-   <td style="text-align:left;"> Time from surgery to registration (0=short, 1=long). </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> node4 </td>
-   <td style="text-align:left;"> binary </td>
-   <td style="text-align:left;"> More than 4 positive lymph nodes. </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> etype </td>
-   <td style="text-align:left;"> categorical </td>
-   <td style="text-align:left;"> Event type: 1=recurrence, 2=death. </td>
-  </tr>
-</tbody>
-</table>
+```{r, echo = FALSE}
+html_table_width(
+    knitr::kable(
+        data.frame(
+            Variable = c(
+                "id",
+                "study",
+                "rx",
+                "sex",
+                "age",
+                "obstruct",
+                "perfor",
+                "adhere",
+                "nodes",
+                "time",
+                "status",
+                "differ",
+                "extent",
+                "surg",
+                "node4",
+                "etype"
+            ),
+            Type = c(
+                "categorical",
+                "categorical",
+                "categorical",
+                "categorical",
+                "continuous",
+                "binary",
+                "binary",
+                "binary",
+                "continuous",
+                "continuous",
+                "binary",
+                "categorical",
+                "categorical",
+                "categorical",
+                "binary",
+                "categorical"
+            ),
+            Description = c(
+                "An id.",
+                "1 for all patients.",
+                "Treatment: Observation, Levamisole or Levamisole+5-FluoroUracyl.",
+                "Patient's sex: Male or Female.",
+                "Patient's age in years.",
+                "Stenosis of the colon by the cancer, which is blockage by the tumor.",
+                "Perforation of colon - a flag whether there was a hole in the colon.",
+                "Adherence to the surrounding organs (e.g. bladder).",
+                "Number of lymph nodes with detectable cancer i.e. during the operation the lymph nodes that were attacked by the cancer are cut out. For the operation to be successful there should be at least 12 lymph nodes.",
+                "Days until event or censoring. The time of receiving the treatment is considered to be time = 0, the time that passed in the variable time is the time until death or relapse from receiving the treatment.",
+                "Censoring status.",
+                "Differentiation of tumour cell (1=well, 2=moderate, 3=poor). The more the better because it is more like colon cells.",
+                "Extent of local spread, what cells did he reach (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures). The less the better.",
+                "Time from surgery to registration (0=short, 1=long).",
+                "More than 4 positive lymph nodes.",
+                "Event type: 1=recurrence, 2=death."
+            )
+        ),
+        "html",
+        caption = "Description of variables found in the dataset with values types from data exploration.",
+        label = "04-variables-description"
+    ),
+    c("20%", "20%", "75%")
+)
+```
 
 
 ### Ideas
@@ -156,7 +140,7 @@ The aim of this model is helping to provide more accurate data and answer the pa
 
 
 ## Data Preprocessing
-We remove columns:
+We removed columns:
 
 - `id`
 - `study`
@@ -168,7 +152,9 @@ The dataset has been divided into:
 - y - target variable (time),
 - treatment - `rx` variable.
 
-Distribution of the variable `rx` is as shown below. This feature has been categorised.
+Distribution of the variable `rx` is as shown in the table \@ref(tab:04-rx-distribution). This feature has been categorised.
+
+Table: (\#tab:04-rx-distribution) Number of observations with given treatment type.
 
 | Levamisole | Levamisole + 5-FU | Observation |
 |:----------:|:-----------------:|:-----------:|
@@ -180,42 +166,39 @@ To predict model we used algorithms from the package [causalml](https://github.c
 To optimize hyper parameters we used algorithms from the package [hyperopt](https://github.com/hyperopt/hyperopt) also in Python 3.
 All notebooks and codes can be found on [GitHub](https://github.com/aleksandramiesiac/UpliftModelling_Iml_team4).
 
-The final model is `XGBTRegressor` with following parameters:
+The final model is `XGBTRegressor` with parameters summarised in the table \@ref(tab:04-model-params).
 
-<table style="width: 50%; margin: 15px 25%;">
- <thead>
-  <tr>
-   <th style="text-align:right;"> Parameter </th>
-   <th style="text-align:left;"> Value </th>
-  </tr>
- </thead>
- <tbody>
-  <tr>
-   <td style="text-align:right;"> colsample_bytree </td>
-   <td style="text-align:left;"> 0.7324146695038634 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> gamma </td>
-   <td style="text-align:left;"> 0.8249750889337837 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> learning_rate </td>
-   <td style="text-align:left;"> 0.8882649077192536 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> max_depth </td>
-   <td style="text-align:left;"> 6 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> min_child_weight </td>
-   <td style="text-align:left;"> 0.4152689004191612 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> n_estimators </td>
-   <td style="text-align:left;"> 250 </td>
-  </tr>
- </tbody>
-</table>
+```{r, echo = FALSE}
+sub(
+    "<table>",
+    '<table style="width: 60%; margin-right: 25%; margin-left: 25%;">',
+    knitr::kable(
+        data.frame(
+            Parameter = c(
+                "colsample_bytree",
+                "gamma",
+                "learning_rate",
+                "max_depth",
+                "min_child_weight",
+                "n_estimators"
+            ),
+            Value = c(
+                "0.7324146695038634",
+                "0.8249750889337837",
+                "0.8882649077192536",
+                "6",
+                "0.4152689004191612",
+                "250"
+            )
+        ),
+        "html",
+        caption = "Final set of parameters used in our model.",
+        label = "04-model-params",
+        align = "rl"
+    )
+)
+```
+
 
 This gives as Average Treatment(Lev) Effect 70.49 and Average Treatment(Lev+5-FU) Effect 70.89.
 
