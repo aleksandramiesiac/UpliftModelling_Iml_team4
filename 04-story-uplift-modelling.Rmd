@@ -144,9 +144,10 @@ The aim of this model is helping to provide more accurate data and answer the pa
 ## Data Preprocessing
 We removed columns:
 
-- `id`
-- `study`
-- `etype`
+- `id`,
+- `study`,
+- `etype`,
+- `study` - due to the intent of regression approach to the problem.
 
 The dataset has been divided into:
 
