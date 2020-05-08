@@ -53,7 +53,7 @@ We use data from one of the first successful trials of adjuvant chemotherapy for
 
 Both of these medications are given after the cancer excision, it's adjutant chemistry, that means "extra post-operative".
 
-There are two records per person, one for recurrence and one for death. Dataset contains 1858 observations and 16 features which are described in the table \@ref(tab:04-variables-description).
+There are two records per person, one for recurrence and one for death. Dataset contains 1858 observations and 16 features which are described in the \@ref(tab:04-variables-description) table.
 
 ```{r, echo = FALSE}
 html_table_width(
@@ -155,7 +155,7 @@ The dataset has been divided into:
 - y - target variable (time),
 - treatment - `rx` variable.
 
-Distribution of the variable `rx` is as shown in the table \@ref(tab:04-rx-distribution). This feature has been categorised.
+Distribution of the variable `rx` is as shown in the \@ref(tab:04-rx-distribution) table. This feature has been categorised.
 
 Table: (\#tab:04-rx-distribution) Number of observations with given treatment type.
 
@@ -169,7 +169,7 @@ To predict model we used algorithms from the package [causalml](https://github.c
 To optimize hyper parameters we used algorithms from the package [hyperopt](https://github.com/hyperopt/hyperopt) also in Python 3.
 All notebooks and codes can be found on [GitHub](https://github.com/aleksandramiesiac/UpliftModelling_Iml_team4).
 
-The final model is `XGBTRegressor` with parameters summarised in the table \@ref(tab:04-model-params).
+The final model is `XGBTRegressor` with parameters summarised in the \@ref(tab:04-model-params) table.
 
 ```{r, echo = FALSE}
 sub(
@@ -241,7 +241,7 @@ Where the sum in the \@ref(eq:04-ate) equation performed over all $N$ individual
 For the instance level explainations we have decided to focus on a limited number of observations.
 These observations are taken from set which seemed to provide interesting results during the data exploration process.
 
-The two observations which we have selected can be found in the table \@ref(tab:04-selected-obs).
+The two observations which we have selected can be found in the \@ref(tab:04-selected-obs) table.
 
 ```{r, echo = FALSE}
 {
@@ -276,6 +276,8 @@ The two observations which we have selected can be found in the table \@ref(tab:
 }
 ```
 
+Both patients have the same severity of the cancer which is denoted by the `extent` variable. One of them is a female and the other is male. The older patient's (`age = 68`) cancer is adhered to surrounding organs whilst the other's cancer is not --- this is denoted by the `adhere` variable. Finally, the last difference is in `differ` variable which is difference between colon cells and cancer cells.
+
 
 #### Break Down
 ```{r, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down",fig.show='hold',fig.align='center'}
@@ -302,8 +304,25 @@ knitr::include_graphics(c('images/04-UL-865Lime1.png','images/04-UL-865Lime2.png
 
 
 #### SHAP
-<!-- TODO: plots -->
+The SHAP plots have been created for both selected observations. For each of the observations there are two different plots. The reason for two different plots is the fact that `XGBTRegressor` model underneath creates a model for every treatment. Hence we have got one plot for every treatment type there is -- in our case *Lev* and *Lev+5FU* -- as seen on figures \@ref(fig:04-SHAP-865) and \@ref(fig:04-SHAP-983).
 
+```{r, 04-SHAP-865, echo=FALSE, out.width = "49%", fig.cap="SHAP plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.", fig.show='hold', fig.align='center'}
+knitr::include_graphics(
+    c(
+        "images/04-UL-865SHAP1.png",
+        "images/04-UL-865SHAP2.png"
+    )
+)
+```
+
+```{r, 04-SHAP-983, echo=FALSE, out.width = "49%", fig.cap="SHAP plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.", fig.show='hold', fig.align='center'}
+knitr::include_graphics(
+    c(
+        "images/04-UL-983SHAP1.png",
+        "images/04-UL-983SHAP2.png"
+    )
+)
+```
 
 ## Summary and Conclusions 
 <!--
