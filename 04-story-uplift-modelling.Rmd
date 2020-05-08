@@ -30,13 +30,13 @@ Uplift modeling is one of the techniques or a branch of machine learning that tr
 
 This technique also allows to discover in research those groups of patients for which treatment was most beneficial, so it is commonly used not only in marketing campaigns or medical treatments but also in other customer services.
 
-REFERENCES:
+References:
 
-* Uplift modeling with survival data - Szymon Jaroszewicz , Piotr Rzepakowski https://home.ipipan.waw.pl/s.jaroszewicz/pdf/HI_KDD14.pdf
-* Uplift modeling for clinical trial data - Maciej Jaśkowski, Szymon Jaroszewicz http://people.cs.pitt.edu/~milos/icml_clinicaldata_2012/Papers/Oral_Jaroszewitz_ICML_Clinical_2012.pdf
-* Uplift Modeling for Multiple Treatments with Cost Optimization Zhenyu Zhao, Totte Harinen https://arxiv.org/pdf/1908.05372.pdf
-* Linear regression for uplift modeling - Krzysztof Rudaś, Szymon Jaroszewicz https://link.springer.com/article/10.1007/s10618-018-0576-8
-* Ensemble methods for uplift modeling, Michał Sołtys, Szymon Jaroszewicz, Piotr Rzepakowski https://www.researchgate.net/publication/282845041_Ensemble_methods_for_uplift_modeling
+ * Uplift modeling with survival data [@04_jaroszewicz_uplift],
+ * Uplift modeling for clinical trial data [@04_jaskowski_uplift],
+ * Uplift Modeling for Multiple Treatments with Cost Optimization [@04_zhao_uplift],
+ * Linear regression for uplift modeling [@04_jaroszewicz_linear],
+ * Ensemble methods for uplift modeling [@04_soltys_ensemble].
 
 <!-- TODO:
  - Czym jest uplift modelling?
