@@ -278,26 +278,28 @@ The two observations which we have selected can be found in the \@ref(tab:04-sel
 
 Both patients have the same severity of the cancer which is denoted by the `extent` variable. One of them is a female and the other is male. The older patient's (`age = 68`) cancer is adhered to surrounding organs whilst the other's cancer is not --- this is denoted by the `adhere` variable. Finally, the last difference is in `differ` variable which is difference between colon cells and cancer cells.
 
+The Explanations plots have been created for both selected observations. For each of the observations there are two different plots. The reason for two different plots is the fact that `XGBTRegressor` model underneath creates a model for every treatment. Hence we have got one plot for every treatment type there is -- in our case *Levamisole(Lev)* and *Levamisole+5-FluoroUracyl(Lev+5FU)* -- as seen on figures below.
 
 #### Break Down
-```{r, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down",fig.show='hold',fig.align='center'}
+On the figures
+```{r BD865, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment. ",fig.show='hold',fig.align='center'}
 knitr::include_graphics('images/04-UL-865BD1.png')
 knitr::include_graphics('images/04-UL-865BD2.png')
 ```
 
-```{r, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down",fig.show='hold',fig.align='center'}
+```{r BD983, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.",fig.show='hold',fig.align='center'}
 knitr::include_graphics('images/04-UL-983BD1.png')
 knitr::include_graphics('images/04-UL-983BD2.png')
 ```
 
 
 #### LIME
-```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime",fig.show='hold',fig.align='center'}
+```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c('images/04-UL-983Lime1.png','images/04-UL-983Lime2.png'))
 #knitr::include_graphics('images/04-UL-865Lime2.png')
 ```
 
-```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime",fig.show='hold',fig.align='center'}
+```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c('images/04-UL-865Lime1.png','images/04-UL-865Lime2.png'))
 #knitr::include_graphics('images/04-UL-865Lime2.png')
 ```
