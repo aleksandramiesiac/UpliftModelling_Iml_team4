@@ -69,5 +69,5 @@ print('Average Treatment1 Effect (XGBoost): {:.2f} ({:.2f}, {:.2f})'.format(te[0
 print('Average Treatment2 Effect (XGBoost): {:.2f} ({:.2f}, {:.2f})'.format(te[1], lb[1], ub[1]))
 print()
     # save experiments
-pickle.dump(best_params, open("pickles/best_params.pickle", "wb"))    
-pickle.dump(mod, open("pickles/opt_XGBTRegressor.pickle", "wb"))
+pickle.dump(best_params, open("pickles/best_params_no_status.pickle", "wb"))    
+pickle.dump(mod, open("pickles/opt_XGBTRegressor_no_status.pickle", "wb"))
