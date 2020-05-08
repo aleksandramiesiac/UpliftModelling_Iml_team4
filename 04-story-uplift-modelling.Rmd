@@ -122,8 +122,7 @@ html_table_width(
 )
 ```
 
-Typically, the survival data includes two variables: the observed survival time (`time` variable in our dataset) and a binary censoring status variable (`status` variable in our dataset). The `status` variable indicates whether the event has been observed (typically denoted by `status = 1`). However, if the event has not been observed (`status = 0`) then the true survival time has ben censored, i.e. it is only known that the true survival time is at least equal to `time`.
-<!-- TODO: citation for: https://home.ipipan.waw.pl/s.jaroszewicz/pdf/HI_KDD14.pdf -->
+Typically, the survival data includes two variables: the observed survival time (`time` variable in our dataset) and a binary censoring status variable (`status` variable in our dataset). The `status` variable indicates whether the event has been observed (typically denoted by `status = 1`). However, if the event has not been observed (`status = 0`) then the true survival time has ben censored, i.e. it is only known that the true survival time is at least equal to `time` [@04_jaroszewicz_uplift].
 
 
 ### Ideas
@@ -133,7 +132,7 @@ There are many ways to use this data:
 - prediction whether the treatment is effective or not,
 - prediction of the life expectancy depending on the medicine administered.
 
-We have decided to focus on the last mentioned approach. There are two approaches for modelling this approach. One of them being classification whether the patient will live longer than given threshold and the second one, on whom we will focus, regression which will yield result by how much the treatment will change the life expectancy.
+We have decided to focus on the last mentioned approach. There are two approaches for modelling this approach. One of them being classification whether the patient will live longer than given threshold [@04_jaroszewicz_uplift] and the second one, on whom we will focus, regression which will yield result by how much the treatment will change the life expectancy.
 
 
 ### Why is it worth the hassle?
