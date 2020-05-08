@@ -53,7 +53,7 @@ We use data from one of the first successful trials of adjuvant chemotherapy for
 
 Both of these medications are given after the cancer excision, it's adjutant chemistry, that means "extra post-operative".
 
-There are two records per person, one for recurrence and one for death. Dataset contains 1858 observations and 16 features which are described in the table \@ref(tab:04-variables-description).
+There are two records per person, one for recurrence and one for death. Dataset contains 1858 observations and 16 features which are described in the \@ref(tab:04-variables-description) table.
 
 ```{r, echo = FALSE}
 html_table_width(
@@ -152,7 +152,7 @@ The dataset has been divided into:
 - y - target variable (time),
 - treatment - `rx` variable.
 
-Distribution of the variable `rx` is as shown in the table \@ref(tab:04-rx-distribution). This feature has been categorised.
+Distribution of the variable `rx` is as shown in the \@ref(tab:04-rx-distribution) table. This feature has been categorised.
 
 Table: (\#tab:04-rx-distribution) Number of observations with given treatment type.
 
@@ -166,7 +166,7 @@ To predict model we used algorithms from the package [causalml](https://github.c
 To optimize hyper parameters we used algorithms from the package [hyperopt](https://github.com/hyperopt/hyperopt) also in Python 3.
 All notebooks and codes can be found on [GitHub](https://github.com/aleksandramiesiac/UpliftModelling_Iml_team4).
 
-The final model is `XGBTRegressor` with parameters summarised in the table \@ref(tab:04-model-params).
+The final model is `XGBTRegressor` with parameters summarised in the \@ref(tab:04-model-params) table.
 
 ```{r, echo = FALSE}
 sub(
@@ -238,7 +238,7 @@ Where the sum in the \@ref(eq:04-ate) equation performed over all $N$ individual
 For the instance level explainations we have decided to focus on a limited number of observations.
 These observations are taken from set which seemed to provide interesting results during the data exploration process.
 
-The two observations which we have selected can be found in the table \@ref(tab:04-selected-obs).
+The two observations which we have selected can be found in the \@ref(tab:04-selected-obs) table.
 
 ```{r, echo = FALSE}
 {
