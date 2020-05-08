@@ -245,33 +245,25 @@ The two observations which we have selected can be found in the \@ref(tab:04-sel
 
 ```{r, echo = FALSE}
 {
-    colNames <- c("sex", "age", "obstruct", "perfor", "adhere", "nodes", "status", "differ", "extent", "surg", "node4")
+    colNames <- c("sex", "age", "obstruct", "perfor", "adhere", "nodes", "differ", "extent", "surg", "node4")
 
-    sub(
-        "<tbody>",
-        '<tbody style="font-size: 87%;">',
-        sub(
-            "<thead>",
-            '<thead style="font-size: 87%;">',
-            knitr::kable(
-                setNames(
-                    as.data.frame(
-                        t(
-                            data.frame(
-                                "865" = c(0, 68, 0, 0, 1, 2, 1, 1, 3, 0, 0),
-                                "983" = c(1, 56, 0, 0, 0, 4, 0, 2, 3, 0, 0),
-                                check.names = FALSE
-                            )
-                        )
-                    ),
-                    colNames
-                ),
-                "html",
-                caption = "The two observations selected from the dataset for instance level explainations.",
-                label = "04-selected-obs",
-                align = rep("c", length(colNames))
-            )
-        )
+    knitr::kable(
+        setNames(
+            as.data.frame(
+                t(
+                    data.frame(
+                        "865" = c(0, 68, 0, 0, 1, 2, 1, 3, 0, 0),
+                        "983" = c(1, 56, 0, 0, 0, 4, 2, 3, 0, 0),
+                        check.names = FALSE
+                    )
+                )
+            ),
+            colNames
+        ),
+        "html",
+        caption = "The two observations selected from the dataset for instance level explainations.",
+        label = "04-selected-obs",
+        align = rep("c", length(colNames))
     )
 }
 ```
