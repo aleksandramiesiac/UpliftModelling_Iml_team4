@@ -122,6 +122,9 @@ html_table_width(
 )
 ```
 
+Typically, the survival data includes two variables: the observed survival time (`time` variable in our dataset) and a binary censoring status variable (`status` variable in our dataset). The `status` variable indicates whether the event has been observed (typically denoted by `status = 1`). However, if the event has not been observed (`status = 0`) then the true survival time has ben censored, i.e. it is only known that the true survival time is at least equal to `time`.
+<!-- TODO: citation for: https://home.ipipan.waw.pl/s.jaroszewicz/pdf/HI_KDD14.pdf -->
+
 
 ### Ideas
 There are many ways to use this data:
