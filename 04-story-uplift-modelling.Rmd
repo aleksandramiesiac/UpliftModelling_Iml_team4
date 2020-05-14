@@ -238,6 +238,39 @@ knitr::include_graphics('images/04-UL-VI.png')
 ```
 
 
+#### Ceteris Paribus and Partial Dependence Profiles
+<!-- TODO(TM): ogólny wstęp & napisać, że skupimy się na dwóch zmiennych -->
+```{r, 04-PDP-Full, echo=FALSE, out.width="100%", fig.cap="TODO", fig.show='hold', fig.align='center'}
+knitr::include_graphics('images/04-UL-PDP-Lev.png')
+knitr::include_graphics('images/04-UL-PDP-Lev5FU.png')
+```
+
+<!-- TODO(TM): opis clustered pdp -->
+```{r, 04-PDP-Clustered, echo=FALSE, out.width="100%", fig.cap="TODO", fig.show='hold', fig.align='center'}
+knitr::include_graphics('images/04-UL-PDP-Clustered-Lev.png')
+knitr::include_graphics('images/04-UL-PDP-Clustered-Lev5FU.png')
+```
+
+<!-- TODO(TM): opis grouped pdp -->
+```{r, 04-PDP-Grouped, echo=FALSE, out.width="100%", fig.cap="TODO", fig.show='hold', fig.align='center'}
+knitr::include_graphics('images/04-UL-PDP-Grouped-Lev.png')
+knitr::include_graphics('images/04-UL-PDP-Grouped-Lev5FU.png')
+```
+
+
+##### Accumulated Local Dependence
+<!-- TODO(TM): porównać zwykłe pdp z ale -->
+```{r, 04-PDP-Avg, echo=FALSE, out.width="100%", fig.cap="TODO", fig.show='hold', fig.align='center'}
+knitr::include_graphics('images/04-UL-PDP-Avg-Lev.png')
+knitr::include_graphics('images/04-UL-PDP-ALE-Lev.png')
+```
+
+```{r, 04-PDP-ALE, echo=FALSE, out.width="100%", fig.cap="TODO", fig.show='hold', fig.align='center'}
+knitr::include_graphics('images/04-UL-PDP-Avg-Lev5FU.png')
+knitr::include_graphics('images/04-UL-PDP-ALE-Lev5FU.png')
+```
+
+
 ### Instance Level Explainations
 For the instance level explainations we have decided to focus on a limited number of observations.
 These observations are taken from set which seemed to provide interesting results during the data exploration process.
