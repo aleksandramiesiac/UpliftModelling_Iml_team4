@@ -217,25 +217,24 @@ Where the sum in the \@ref(eq:04-ate) equation performed over all $N$ individual
 
 
 ## Explanations
-<!--
-    TODO:(oryginał):
-    > Here, show how XAI techniques can be used to solve the problem.
-    > Will dataset specific or instance specific techniques help more?
-    >
-    > Will XAI be useful before (pre), during (in) or after (post) modeling?
-    >
-    > What is interesting to learn from the XAI analysis?
+The model we have used created a submodel for each type of treatment. In our case we have gotten two models - one for *Lev* treatment and the other for *Lev+5FU* treatment. Therefore we are creating explainations two separate sets of explainations with the methods known to us.
 
-     - Jak w ogóle to wyjaśniać skoro np. możemy mieć dwa modele?
-     - Wizualizacje dopracować (czytelne wykresy, opisy itp.) [ad 4].
--->
+Additionally, we will try to show how particular explainations could be used by different users.
 
 
 ### Dataset Level Explainations
-#### Feature Importace
+#### Feature Importance
+The feature importance plot shown on figure \@ref(fig:04-VI) represents shows the possible loss of permuting values of given variable. This is an indicator of how important is given variable as the bigger drop-out loss is the more information was lost due to fiddling with the variable. The loss is measured with root mean square. For interpreting the importance we have chosen few subjectively interesting variables.
+
 ```{r, 04-VI, echo=FALSE, out.width="100%", fig.cap="Feature Importance calculated for both types of treatment. The variables are sorted by the mean drop-out loss across the treatments. The loss function is root mean square.", fig.show='hold', fig.align='center'}
 knitr::include_graphics('images/04-UL-VI.png')
 ```
+
+The trait which is shared between the two models presented on figure \@ref(fig:04-VI) is the age being quite important variable. The plot shows that permuting the age column yields big loss. This can be a suggestion for the doctor using model to select the best treatment to take patients age into account when selecting the treatment. On the other hand the companies developing drugs for cancer treatment can look into the age groups and aim for creating drug treating an age group which possibly lacks such treatment or currently used treatments are ineffective.
+
+The second important information we can get from this plot is from looking at the `node4` variable. This is a binary value whether the number of nodes is greater than 4. According to our domain knowledge the number of nodes positively affects survivability after the surgery treating cancer. As we can see the drop-out of this variable for the stronger treatment (*Lev+5FU*) is biggest amongst all the variables. This proves that the information about patient's sickness history is crucial for selecting correct treatment as high enough number of nodes gives us information about treatment's efficiency.
+
+The last observation we would like to make is how the average dropout in the model depicting *Levamisole* treatment is higher by about $3.5\%$. Its hard to reason this trend. One of the ideas that we came up is that the stronger treatment has overall better effect thus it values less particular variables.
 
 
 #### Ceteris Paribus and Partial Dependence Profiles
