@@ -240,7 +240,7 @@ The last observation we would like to make is how the average dropout in the mod
 #### Ceteris Paribus and Partial Dependence Profiles
 The Ceteris Paribus profiles and the average Partial Dependence Profile has been plotted for both of our models on figure \@ref(fig:04-PDP-Full). As we can the those subplots for every variable for the most part don't get too exciting. That is due to large number of binary variables in the dataset. With this in mind we have decided to focus on the two variables which appear to have the most interesting plots at a first glance. These variables are `age` and `nodes`. To get clearer picture of the chosen variables we present the plots just for them on the figure \@ref(fig:04-PDP-Avg).
 
-```{r, 04-PDP-Full, echo=FALSE, out.width="100%", fig.cap="TODO", fig.show='hold', fig.align='center'}
+```{r, 04-PDP-Full, echo=FALSE, out.width="100%", fig.cap="Ceteris Paribus and Partial Dependence Profiles for every variable in the dataset with regard to models representing different treatments.", fig.show='hold', fig.align='center'}
 knitr::include_graphics('images/04-UL-PDP-Lev.png')
 knitr::include_graphics('images/04-UL-PDP-Lev5FU.png')
 ```
@@ -251,7 +251,7 @@ As we can see the spiked average plot appears to span across all the Ceteris Par
 The `nodes` variable's plots appear to be more stable compared to the `age`. For both treatment types we can observe the flat-out for large values of `nodes`. The flat-out most likely appears due to the redundancy of too big number of nodes. There is a notable increase in prediction value starting at around value of 10. This aligns with our domain knowledge which states that 12 nodes are really decent amount which increases the chances of successful treatment. Therefore if the 12 nodes are good enough then any more than that neither do contribute to the survivability nor to the model's prediction.
 <!-- TODO: wyjaśnić dlaczego początek nodes jest taki poszarpany -->
 
-```{r, 04-PDP-Avg, echo=FALSE, out.width="100%", fig.cap="TODO", fig.show='hold', fig.align='center'}
+```{r, 04-PDP-Avg, echo=FALSE, out.width="100%", fig.cap=sprintf("Enlarged plots from the figure %s of the variables chosen for detailed analysis (`age` and `nodes`) with regard to applied treatment.", ifelse(knitr:::is_latex_output(), "\\ref{fig:04-PDP-Full}", "\\@ref(fig:04-PDP-Full)")), fig.show='hold', fig.align='center'}
 knitr::include_graphics('images/04-UL-PDP-Avg-CP-Lev.png')
 knitr::include_graphics('images/04-UL-PDP-Avg-CP-Lev5FU.png')
 ```
