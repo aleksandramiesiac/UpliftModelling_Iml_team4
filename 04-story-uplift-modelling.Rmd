@@ -245,11 +245,11 @@ knitr::include_graphics('images/04-UL-PDP-Lev.png')
 knitr::include_graphics('images/04-UL-PDP-Lev5FU.png')
 ```
 
-As we can see the spiked average plot appears to span across all the Ceteris Paribus profiles of the `age` variable subplot for both types of treatment.
-<!-- TODO: wyjaśnić dlaczego age jest taki poszarpany -->
+As we can see the spiked average plot appears to span across all the Ceteris Paribus profiles of the `age` variable subplot for both types of treatment. This might be due to the fact that the treatment does not rely on the patient's age or that the age is highly affected by some other variable. From our analysis we are keen on making the assumption that the first statement in previous sentence is true. With that in mind there are two noticeable spikes - one approximately for 35 and the other for 65. This observation can be interesting from various points of view.
+
+The first one is from our - the analysts - perspective. Theses spikes can indicate that certain age groups have higher uplift effect. This can be a crucial information for the doctor which is overseeing the patient. If the patient's age falls into the age group which copes well with one of the treatments then it can make the choice easier. On the other hand if the patient's age does not overlap with the spikes then it might be a suggestion to look for different type of treatment than the two we have available here. Finally, this information can be used by pharmacy consortiums. Clearly, there are only two age groups for which the treatment appears to be working better than average. This can give a clear direction which age groups' treatment should be prioritized during development of new drugs and treatments.
 
 The `nodes` variable's plots appear to be more stable compared to the `age`. For both treatment types we can observe the flat-out for large values of `nodes`. The flat-out most likely appears due to the redundancy of too big number of nodes. There is a notable increase in prediction value starting at around value of 10. This aligns with our domain knowledge which states that 12 nodes are really decent amount which increases the chances of successful treatment. Therefore if the 12 nodes are good enough then any more than that neither do contribute to the survivability nor to the model's prediction.
-<!-- TODO: wyjaśnić dlaczego początek nodes jest taki poszarpany -->
 
 ```{r, 04-PDP-Avg, echo=FALSE, out.width="100%", fig.cap=sprintf("Enlarged plots from the figure %s of the variables chosen for detailed analysis (`age` and `nodes`) with regard to applied treatment.", ifelse(knitr:::is_latex_output(), "\\ref{fig:04-PDP-Full}", "\\@ref(fig:04-PDP-Full)")), fig.show='hold', fig.align='center'}
 knitr::include_graphics('images/04-UL-PDP-Avg-CP-Lev.png')
