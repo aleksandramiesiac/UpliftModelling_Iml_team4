@@ -256,29 +256,10 @@ knitr::include_graphics('images/04-UL-PDP-Avg-CP-Lev.png')
 knitr::include_graphics('images/04-UL-PDP-Avg-CP-Lev5FU.png')
 ```
 
-<!-- TODO(TM): opis clustered pdp -->
-```{r, 04-PDP-Clustered, echo=FALSE, out.width="100%", fig.cap="TODO", fig.show='hold', fig.align='center'}
-knitr::include_graphics('images/04-UL-PDP-Clustered-Lev.png')
-knitr::include_graphics('images/04-UL-PDP-Clustered-Lev5FU.png')
-```
-
 <!-- TODO(TM): opis grouped pdp -->
 ```{r, 04-PDP-Grouped, echo=FALSE, out.width="100%", fig.cap="TODO", fig.show='hold', fig.align='center'}
 knitr::include_graphics('images/04-UL-PDP-Grouped-Lev.png')
 knitr::include_graphics('images/04-UL-PDP-Grouped-Lev5FU.png')
-```
-
-
-##### Accumulated Local Dependence
-<!-- TODO(TM): porównać zwykłe pdp z ale -->
-```{r, 04-PDP-ALE-Lev, echo=FALSE, out.width="49%", fig.cap="TODO", fig.show='hold', fig.align='center'}
-knitr::include_graphics('images/04-UL-PDP-ALE-Lev.png')
-knitr::include_graphics('images/04-UL-PDP-Avg-Lev.png')
-```
-
-```{r, 04-PDP-ALE-Lev5FU, echo=FALSE, out.width="49%", fig.cap="TODO", fig.show='hold', fig.align='center'}
-knitr::include_graphics('images/04-UL-PDP-ALE-Lev5FU.png')
-knitr::include_graphics('images/04-UL-PDP-Avg-Lev5FU.png')
 ```
 
 
