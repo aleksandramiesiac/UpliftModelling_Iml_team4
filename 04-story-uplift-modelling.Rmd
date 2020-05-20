@@ -256,7 +256,11 @@ For the `age` variable the spiked tendency appears to span across all the Ceteri
 The first one is from our - the analysts - perspective. Theses spikes can indicate that certain age groups have higher uplift effect. This can be a crucial information for the doctor which is overseeing the patient. If the patient's age falls into the age group which copes well with one of the treatments then it can make the choice easier. On the other hand if the patient's age does not overlap with the spikes then it might be a suggestion to look for different type of treatment than the two we have available here. Finally, this information can be used by pharmacy consortiums. Clearly, there are only two age groups for which the treatment appears to be working better than average. This can give a clear direction which age groups' treatment should be prioritized during development of new drugs and treatments.
 
 
-#### Grouped Partial Dependence Profiles
+#### Grouped Partial Dependence Profiles {-}
+To perform more detailed analysis on both doctor's and consortium's points of view we have decided to group the profiles by the `extent` variable. This variable gives information about how far has the patient's disease progressed.
+
+As we can see on figure \@ref(fig:04-PDP-Grouped) the overall shape of subplots for both variables did not change too much between the different groups. This tendency is kept across the two models we have for the treatments. When it comes to the `nodes` variable there is a quite distinctive difference between the two treatments - it is the fourth group (`XGBTRegressor Lev_4` and `XGBTRegressor Lev+5FU_4`). The stronger treatment (*Lev+5FU*) does not stand out from the other groups whereas the weaker treatment falls behind the other groups. This leads to following conclusions: for the patients with highly developed cancer and a metastasis the weaker treatment is simply put - too weak - no matter ho much nodes the patient did have. It is not sufficient to treat this advanced stage of disease with the Levamisole. This is the conclusion the doctors would want to see before making a final choice for treatment. Without this information the assigned treatment might have insufficient effect.
+
 ```{r, 04-PDP-Grouped, echo=FALSE, out.width="100%", fig.cap="TODO", fig.show='hold', fig.align='center'}
 knitr::include_graphics('images/04-UL-PDP-Grouped-Lev.png')
 knitr::include_graphics('images/04-UL-PDP-Grouped-Lev5FU.png')
