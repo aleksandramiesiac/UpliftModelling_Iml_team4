@@ -217,24 +217,58 @@ Where the sum in the \@ref(eq:04-ate) equation performed over all $N$ individual
 
 
 ## Explanations
-<!--
-    TODO:(oryginał):
-    > Here, show how XAI techniques can be used to solve the problem.
-    > Will dataset specific or instance specific techniques help more?
-    >
-    > Will XAI be useful before (pre), during (in) or after (post) modeling?
-    >
-    > What is interesting to learn from the XAI analysis?
+The model we have used created a submodel for each type of treatment. In our case we have gotten two models - one for *Lev* treatment and the other for *Lev+5FU* treatment. Therefore we are creating explainations two separate sets of explainations with the methods known to us. Additionally, we will try to show how particular explainations could be used by different users of the models.
 
-     - Jak w ogóle to wyjaśniać skoro np. możemy mieć dwa modele?
-     - Wizualizacje dopracować (czytelne wykresy, opisy itp.) [ad 4].
--->
+To start of this chapter we have selected feature importance which seems like a natural choice - checking which variables appear to be bear the biggest contribution to the model's prediction.
 
 
-### Dataset Level Explainations
-<!--
-    TODO: Jaka jest istotność zmiennych?
--->
+### Feature Importance
+The feature importance plot shown on figure \@ref(fig:04-VI) represents shows the possible loss of permuting values of given variable. This is an indicator of how important is given variable as the bigger drop-out loss is the more information was lost due to fiddling with the variable. The loss is measured with root mean square. For interpreting the importance we have chosen few subjectively interesting variables.
+
+```{r, 04-VI, echo=FALSE, out.width="100%", fig.cap="Feature Importance calculated for both types of treatment. The variables are sorted by the mean drop-out loss across the treatments. The loss function is root mean square.", fig.show='hold', fig.align='center'}
+knitr::include_graphics('images/04-UL-VI.png')
+```
+
+The trait which is shared between the two models presented on figure \@ref(fig:04-VI) is the age being quite important variable. The plot shows that permuting the age column yields big loss. This can be a suggestion for the doctor using model to select the best treatment to take patients age into account when selecting the treatment. On the other hand the companies developing drugs for cancer treatment can look into the age groups and aim for creating drug treating an age group which possibly lacks such treatment or currently used treatments are ineffective.
+
+The second important information we can get from this plot is from looking at the `node4` variable. This is a binary value whether the number of nodes is greater than 4. According to our domain knowledge the number of nodes positively affects survivability after the surgery treating cancer. As we can see the drop-out of this variable for the stronger treatment (*Lev+5FU*) is biggest amongst all the variables. This proves that the information about patient's sickness history is crucial for selecting correct treatment as high enough number of nodes gives us information about treatment's efficiency.
+
+The last observation we would like to make is how the average dropout in the model depicting *Levamisole* treatment is higher by about $3.5\%$. Its hard to reason this trend. One of the ideas that we came up is that the stronger treatment has overall better effect thus it values less particular variables.
+
+
+### Ceteris Paribus and Partial Dependence Profiles
+The Ceteris Paribus profiles and the average Partial Dependence Profile has been plotted for both of our models on figure \@ref(fig:04-PDP-Full). As we can the those subplots for every variable for the most part don't get too exciting. That is due to large number of binary variables in the dataset. With this in mind we have decided to focus on the two variables which appear to have the most interesting plots at a first glance. These variables are `age` and `nodes`. To get clearer picture of the chosen variables we present the plots just for them on the figure \@ref(fig:04-PDP-Avg).
+
+```{r, 04-PDP-Full, echo=FALSE, out.width="100%", fig.cap="Ceteris Paribus and Partial Dependence Profiles for every variable in the dataset with regard to models representing different treatments.", fig.show='hold', fig.align='center'}
+knitr::include_graphics('images/04-UL-PDP-Lev.png')
+knitr::include_graphics('images/04-UL-PDP-Lev5FU.png')
+```
+
+The `nodes` variable's plots on the enlarged figure \@ref(fig:04-PDP-Avg) appear to be more stable compared to the `age`. For both treatment types we can observe the flat-out for large values of `nodes`. The flat-out most likely appears due to the redundancy of too big number of nodes. There is a notable increase in prediction value starting at around value of 10. This aligns with our domain knowledge which states that 12 nodes are really decent amount which increases the chances of successful treatment. Therefore if the 12 nodes are good enough then any more than that neither do contribute to the survivability nor to the model's prediction.
+
+```{r, 04-PDP-Avg, echo=FALSE, out.width="100%", fig.cap=sprintf("Enlarged plots from the figure %s of the variables chosen for detailed analysis (`age` and `nodes`) with regard to applied treatment.", ifelse(knitr:::is_latex_output(), "\\ref{fig:04-PDP-Full}", "\\@ref(fig:04-PDP-Full)")), fig.show='hold', fig.align='center'}
+knitr::include_graphics('images/04-UL-PDP-Avg-CP-Lev.png')
+knitr::include_graphics('images/04-UL-PDP-Avg-CP-Lev5FU.png')
+```
+
+For the `age` variable the spiked tendency appears to span across all the Ceteris Paribus profiles plotted on figure \@ref(fig:04-PDP-Avg). This might be due to the fact that the treatment does not rely on the patient's age or that the age is highly affected by some other variable. From our analysis we are keen on making the assumption that the first statement in previous sentence is true. With that in mind there are two noticeable spikes - one approximately for 35 and the other for 65. This observation can be interesting from various points of view.
+
+The first one is from our - the analysts - perspective. Theses spikes can indicate that certain age groups have higher uplift effect. This can be a crucial information for the doctor which is overseeing the patient. If the patient's age falls into the age group which copes well with one of the treatments then it can make the choice easier. On the other hand if the patient's age does not overlap with the spikes then it might be a suggestion to look for different type of treatment than the two we have available here. Finally, this information can be used by pharmacy consortiums. Clearly, there are only two age groups for which the treatment appears to be working better than average. This can give a clear direction which age groups' treatment should be prioritized during development of new drugs and treatments.
+
+
+#### Grouped Partial Dependence Profiles {-}
+To perform more detailed analysis on both doctor's and consortium's points of view we have decided to group the profiles by the `extent` variable. This variable gives information about how far has the patient's disease progressed.
+
+As we can see on figure \@ref(fig:04-PDP-Grouped) the overall shape of subplots for both variables did not change too much between the different groups. This tendency is kept across the two models we have for the treatments. When it comes to the `nodes` variable there is a quite distinctive difference between the two treatments - it is the fourth group (`XGBTRegressor Lev_4` and `XGBTRegressor Lev+5FU_4`). The stronger treatment (*Lev+5FU*) does not stand out from the other groups whereas the weaker treatment falls behind the other groups. This leads to following conclusions: for the patients with highly developed cancer and a metastasis the weaker treatment is simply put - too weak - no matter ho much nodes the patient did have. It is not sufficient to treat this advanced stage of disease with the Levamisole. This is the conclusion the doctors would want to see before making a final choice for treatment. Without this information the assigned treatment might have insufficient effect.
+
+```{r, 04-PDP-Grouped, echo=FALSE, out.width="100%", fig.cap="Partial Dependence Profiles of variables `age` and `nodes` grouped by the `extent` variable and shown for both types of treatment represented by two different models.", fig.show='hold', fig.align='center'}
+knitr::include_graphics('images/04-UL-PDP-Grouped-Lev.png')
+knitr::include_graphics('images/04-UL-PDP-Grouped-Lev5FU.png')
+```
+
+On the contrary the `age` variable does not show such a single strong trend. However, as we have pointed out before, there are two spikes for ages 35 and 65. What the grouped PDP plot shows is that the spike for `age = 35` mostly consists of patients with `extent = 3` whereas the `age = 65` spike appears to span across all levels of `extent` variable. This is an insight which couldn't be given by the average partial dependence profiles. From the data scientists perspective it is an important lesson that the correlation between variables do happen and should be examined thoroughly. For the doctor this information can change the decision to supply given treatment. If the patient falls into `age = 35` group but does not have the specific `extent` which appears to be treated well then it can be a suggestion to turn to some other treatment. On the other hand for the pharmacy it can be a clear sign to analyse why given treatment works for such a specific group. This research can then be used for developing new treatments and improving the life expectancy of cancer patients.
+
+Overall the partial dependence profiles give a valuable insight into the entirety of the dataset. We believe that in this particular case, which is regression task measuring treatment, both the average and grouped partial dependence profiles give valuable information on how the treatments work for different target groups. In our case, with the colon cancer data, the best use-cases appear to be the doctors office for selecting right treatment and the research condoned by the pharmacy consortiums for targeting groups which don't have satisfactory response to treatment.
 
 
 ### Instance Level Explainations
@@ -272,6 +306,7 @@ Both patients have the same severity of the cancer which is denoted by the `exte
 
 The Explanations plots have been created for both selected observations. For each of the observations there are two different plots. The reason for two different plots is the fact that `XGBTRegressor` model underneath creates a model for every treatment. Hence we have got one plot for every treatment type there is -- in our case *Levamisole(Lev)* and *Levamisole+5-FluoroUracyl(Lev+5FU)* -- as seen on figures below.
 
+
 #### Break Down
 On the figures
 ```{r BD865, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment. ",fig.show='hold',fig.align='center'}
@@ -296,27 +331,6 @@ knitr::include_graphics(c('images/04-UL-865Lime1.png','images/04-UL-865Lime2.png
 #knitr::include_graphics('images/04-UL-865Lime2.png')
 ```
 
-
-#### SHAP
-The SHAP plots have been created for both selected observations. For each of the observations there are two different plots. The reason for two different plots is the fact that `XGBTRegressor` model underneath creates a model for every treatment. Hence we have got one plot for every treatment type there is -- in our case *Lev* and *Lev+5FU* -- as seen on figures \@ref(fig:04-SHAP-865) and \@ref(fig:04-SHAP-983).
-
-```{r, 04-SHAP-865, echo=FALSE, out.width = "49%", fig.cap="SHAP plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.", fig.show='hold', fig.align='center'}
-knitr::include_graphics(
-    c(
-        "images/04-UL-865SHAP1.png",
-        "images/04-UL-865SHAP2.png"
-    )
-)
-```
-
-```{r, 04-SHAP-983, echo=FALSE, out.width = "49%", fig.cap="SHAP plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.", fig.show='hold', fig.align='center'}
-knitr::include_graphics(
-    c(
-        "images/04-UL-983SHAP1.png",
-        "images/04-UL-983SHAP2.png"
-    )
-)
-```
 
 ## Summary and Conclusions 
 <!--
