@@ -14,13 +14,9 @@ html_table_width <- function(kable_output, width){
 ```
 
 ## Introduction 
+In this chapter we will present a model for predicting the time remaining for patients after a diagnosis of colon cancer of medium stage (B/C). We have used the uplift  method and a number of explanatory methods such as Feature Importance, Ceteris Paribus and Partial Dependence Profiles, Break Down plots and LIME.
+
 We will use data about **Chemotherapy for Stage B/C colon cancer** from `survival` package in R. The documentation can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/survival/html/colon.html), the package can be installed with `install.packages("survival")` command in R console. After the installation dataset can be accessed via `survival::colon` command.
-
-<!--
-    TODO: Describe why this problem is important. Indicate the most important literature on the problem. 
-    TODO(oryginał): Put a description of the problem here. *Indicate the data source.*
--->
-
 
 ### What is Uplift Modelling?
 
@@ -304,32 +300,31 @@ The two observations which we have selected can be found in the \@ref(tab:04-sel
 
 Both patients have the same severity of the cancer which is denoted by the `extent` variable. One of them is a female and the other is male. The older patient's (`age = 68`) cancer is adhered to surrounding organs whilst the other's cancer is not --- this is denoted by the `adhere` variable. Finally, the last difference is in `differ` variable which is difference between colon cells and cancer cells.
 
-The Explanations plots have been created for both selected observations. For each of the observations there are two different plots. The reason for two different plots is the fact that `XGBTRegressor` model underneath creates a model for every treatment. Hence we have got one plot for every treatment type there is -- in our case *Levamisole(Lev)* and *Levamisole+5-FluoroUracyl(Lev+5FU)* -- as seen on figures below.
+To summarize, we have a 68-year-old woman whose tumor adheres to the surrounding organs, but it's medium advanced because the cell differentiation is small and only 2 lymph nodes with detectable cancer have been found. Let's call her Mrs. Basia for clarification and article. We also have a 56 year old man whose cancer is quite advanced because he has highly differentiated cancer cells and a large number of lymph nodes.  For the purposes of explanations and the article, let us call him Mr. Peter.
+
+The Explanations plots have been created for both patients Mr. Peter and Mrs. Basia. For each of the patients there are two different plots. The reason for two different plots is the fact that `XGBTRegressor` model underneath creates a model for every treatment. Hence we have got one plot for every treatment type there is -- in our case *Levamisole(Lev)* and *Levamisole+5-FluoroUracyl(Lev+5FU)* -- as seen on figures below.
 
 
 #### Break Down
-On the figures
-```{r BD865, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment. ",fig.show='hold',fig.align='center'}
+The Break Down charts show how the given values of variables influence the model result, i.e. which value influences positively (negatively) and how much positively (negatively). This allows us to examine which aspects of a given patient are crucial in a given treatment or which may disqualify him/her from a given treatment. Understanding these aspects may help the doctor who selects the treatment for the patient, but it may also help to outline the situation in which the patient finds himself, so that he has more knowledge and understanding. 
+In addition, in our case we see a comparison between the two types of treatment, this can also help the decision making process of treatment, and it could be used by pharmaceutical companies when introducing a new drug to the market - by comparing the 'old' and 'new' drug. Thus, modern treatments could be applied to more patients. 
+
+```{r 04-BD865, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down plots for Mrs. Basia. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment. ",fig.show='hold',fig.align='center'}
 knitr::include_graphics('images/04-UL-865BD1.png')
 knitr::include_graphics('images/04-UL-865BD2.png')
 ```
+On the figure \@ref(fig:04-BD865) For the treatment of levamisole (left) we can see that age, gender and the fact that Mrs. Basia's cancer comes to the surrounding organs has a very negative impact on the prognosis. However, a small number of lymph nodes with detectable cancer and the fact that Mrs. Basia wants to start treatment immediately after the operation has a very positive effect. Finally, we can see that if Mrs. Basia decided to treat Levamisole, it would unfortunately harm her, perhaps it would be because the medicine is too weak and would not harm the cancer, but Mrs. Barbara's general health.
+To the right of the figure \@ref(fig:04-BD865). we have predictions assuming Levamisole + 5-FluoroUracyl treatment here we see that the variables that negatively influence the result are also age and adhesion to the surrounding organs, but note that here gender and tumor differentiation have a positive influence on the prediction. Besides, the final result is higher than the Levamisole treatment. We can see that using a stronger medication here would have better results. 
+Such an accurate picture can help the doctor to decide which medicine to choose and why. Besides, in conversations with the patient, specific numbers, data and graphs would have a calming effect and the patient would feel more confident and, as we know, mental health is as important as physical health.
 
-```{r BD983, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.",fig.show='hold',fig.align='center'}
+
+```{r 04-BD983, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down plots for Mr. Peter. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.",fig.show='hold',fig.align='center'}
 knitr::include_graphics('images/04-UL-983BD1.png')
 knitr::include_graphics('images/04-UL-983BD2.png')
 ```
 
+On the figure \@ref(fig:04-BD983) for the treatment of Levamisole (left) we can see that Mr. Peter's condition is very serious, because all the variables except for the fact that the tumor does not adhere to the surrounding organs cause such low prediction. From the general description of Mr. Peter's condition we do not see that he reacts so badly to treatment. The doctor treating the patient, seeing such a chart, immediately knows that Levamisole treatment must be excluded. It also says about it a very poor result of prediction, over 1500 lost days, if the doctor and the patient would decide to treat Levamisole. Now let's look at the graph on the right, it talks about how the individual attributes of Peter influence the prediction of whether his condition will improve. Seeing the prediction, i.e. more than 800 lost days, we know that this treatment is also not worth using for Mr. Peter. Let's take a closer look at this chart. Unlike the previous treatment, the influence of age is much more visible, more than 200 times worse will Mr. Peter react to stronger treatment than to weaker one.  The fact that Peter's tumor has not spread to the surrounding organs has a positive effect in both treatments. The positive effect in the treatment of Levamisole +5-FluoroUracyl is the fact that immediately after the operation Mr. Peter came to the treatment and the fact that during the operation at least 4 lymph nodes with detectable cancer were excised. None of the proposed treatments are satisfactory in Mr. Peter's case.
 
-#### LIME
-```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.",fig.show='hold',fig.align='center'}
-knitr::include_graphics(c('images/04-UL-983Lime1.png','images/04-UL-983Lime2.png'))
-#knitr::include_graphics('images/04-UL-865Lime2.png')
-```
-
-```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.",fig.show='hold',fig.align='center'}
-knitr::include_graphics(c('images/04-UL-865Lime1.png','images/04-UL-865Lime2.png'))
-#knitr::include_graphics('images/04-UL-865Lime2.png')
-```
 
 
 ## Summary and Conclusions 
