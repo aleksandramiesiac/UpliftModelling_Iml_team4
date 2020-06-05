@@ -34,12 +34,6 @@ References:
  * Linear regression for uplift modeling [@04_jaroszewicz_linear],
  * Ensemble methods for uplift modeling [@04_soltys_ensemble].
 
-<!-- TODO:
- - Czym jest uplift modelling?
- - Gdzie go się stosuje?
- - Jakie problemy możemy modelować (survival & leki, marketing & zysk)?
--->
-
 
 ### Dataset Description
 We use data from one of the first successful trials of adjuvant chemotherapy for colon cancer. There are two type of treatment:
@@ -334,15 +328,3 @@ In the Uplifts problem, the model architecture plays an important role. It shoul
 It is not easy to show the results of such a model and there are many limitations. For example, using the LIME method would not be advisable here, because this method is not additive. Subtraction of the factors returned by LIME would not give any information.
 
 It is not enough to use whatever explanations you want, you have to choose the right methods for the problem. In uplift, only the additive methods will bring some value. In this chapter we have dealt with a few selected methods(FI, PDP, CP,BD), but there are still many methods that could be examined, including SHAP values.
-
-<!--
-    TODO:(oryginał):
-    > Here add the most important conclusions related to the XAI analysis.
-    > What did you learn? 
-    > Where were the biggest difficulties?
-    > What else did you recommend?
-
-     - Jakich informacji XAI nam dostarczyło na temat tego problemu?
-     - Jak XAI sprawdza się do wyjaśniania upliftu?
-     - Dlaczego było warto to modelować (konkretnie ten dataset) [ad 5].
--->
