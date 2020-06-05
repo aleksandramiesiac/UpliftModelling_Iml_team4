@@ -115,6 +115,12 @@ html_table_width(
 Typically, the survival data includes two variables: the observed survival time (`time` variable in our dataset) and a binary censoring status variable (`status` variable in our dataset). The `status` variable indicates whether the event has been observed (typically denoted by `status = 1`). However, if the event has not been observed (`status = 0`) then the true survival time has ben censored, i.e. it is only known that the true survival time is at least equal to `time` [@04_jaroszewicz_uplift].
 
 
+#### Important remark {-}
+Please note that this dataset contains censored data. This means that the `time` variable does not provide exact information on survival `time` and rather a lower limit for survived time. Therefore the problem should be converted into a classification whether a patient survived more than given time $\tau$ threshold, i.e. modelling $\mathbb{P}(t \geq \tau)$. However, we did not know how to work with censored data at the time of modelling and we stuck with modelling it as a typical regression problem.
+
+Therefore **this chapter should not be treated as an example of modelling** and rather as an example of creating explainations for uplift regression problem.
+
+
 ### Ideas
 There are many ways to use this data:
 
